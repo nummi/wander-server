@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: wander_development
+  pool: 5
+  username: tahi
+  password:
