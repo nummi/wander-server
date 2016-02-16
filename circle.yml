@@ -1,0 +1,37 @@
+## Customize machine
+machine:
+  timezone:
+    America/Los_Angeles
+
+  ruby:
+    version:
+      2.2.3 # when changing ruby versions, also update the cache_directory path below
+
+
+## Customize dependencies
+dependencies:
+  cache_directories:
+    - "~/.rvm/gems/ruby-2.2.3@tahi"
+
+  pre:
+    - bundle config --global jobs 7
+    - bundle config --global without staging:production
+
+  override:
+    - bundle install: # note ':' here
+        timeout: 600
+
+## Customize database setup
+database:
+  override:
+    - bundle exec rake db:create db:schema:load
+
+## Customize test commands
+
+## Customize heroku deployment
+deployment:
+  staging:
+    branch: master
+    commands:
+      - git push git@heroku.com:wander-server.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app wander-server
