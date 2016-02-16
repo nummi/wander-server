@@ -3,6 +3,11 @@ machine:
   timezone:
     America/Los_Angeles
 
+  environment:
+    CIRCLE_ENV: test
+    RAILS_ENV: test
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+
   ruby:
     version:
       2.2.3 # when changing ruby versions, also update the cache_directory path below
@@ -21,12 +26,16 @@ dependencies:
     - bundle install: # note ':' here
         timeout: 600
 
+
 ## Customize database setup
 database:
   override:
+    - cp config/database.yml.ci config/database.yml
     - bundle exec rake db:create db:schema:load
 
+
 ## Customize test commands
+
 
 ## Customize heroku deployment
 deployment:
