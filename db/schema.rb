@@ -20,14 +20,11 @@ ActiveRecord::Schema.define(version: 20160212195815) do
     t.integer  "cost"
     t.text     "description"
     t.json     "geolocation"
+    t.text     "category",    default: "location", null: false
     t.json     "venue"
     t.json     "weather"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "paper_reviews", force: :cascade do |t|
-    t.text "body"
   end
 
 end

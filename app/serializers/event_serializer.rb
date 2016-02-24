@@ -1,3 +1,10 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :description, :cost, :geolocation, :venue, :weather, :created_at
+  attributes :id,
+             :cost,
+             :created_at,
+             :description,
+             :geolocation,
+             :category,
+             :venue,
+             :weather
 end

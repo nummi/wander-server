@@ -4,6 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.integer :cost
       t.text :description
       t.json :geolocation
+      t.text :category, :null => false, :default => 'location'
       t.json :venue
       t.json :weather
       t.timestamps
