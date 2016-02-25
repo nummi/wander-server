@@ -1,6 +1,7 @@
 class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
+      t.boolean :publish, :null => false, :default => true
       t.integer :cost
       t.text :description
       t.json :geolocation

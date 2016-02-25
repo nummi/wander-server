@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20160212195815) do
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
+    t.boolean  "publish",     default: true,       null: false
     t.integer  "cost"
     t.text     "description"
     t.json     "geolocation"
