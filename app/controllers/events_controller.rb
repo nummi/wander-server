@@ -14,6 +14,10 @@ class EventsController < ApplicationController
   end
 
   def create
+    unless params[:event][:photo].empty?
+      params[:event][:photo] = convert_to_upload(params[:event][:photo])
+    end
+
     event = Event.new(event_params)
     event.save
     respond_with event
@@ -36,10 +40,37 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(
       :cost,
+      :photo,
       :description).tap do |whitelisted|
         whitelisted[:geolocation] = params[:event][:geolocation]
         whitelisted[:venue]       = params[:event][:venue]
         whitelisted[:weather]     = params[:event][:weather]
       end
+  end
+
+  def convert_to_upload(image)
+    image_data = split_base64(image[:data])
+
+    temp_img_file = Tempfile.new("data_uri-upload")
+    temp_img_file.binmode
+    temp_img_file << Base64.decode64(image_data[:data])
+    temp_img_file.rewind
+
+    ActionDispatch::Http::UploadedFile.new({
+      filename: image[:name],
+      type: image[:type],
+      tempfile: temp_img_file
+    })
+  end
+
+  def split_base64(uri_str)
+    if uri_str.match(%r{^data:(.*?);(.*?),(.*)$})
+      uri = Hash.new
+      uri[:type] = $1 # "image/gif"
+      uri[:encoder] = $2 # "base64"
+      uri[:data] = $3 # data string
+      uri[:extension] = $1.split('/')[1] # "gif"
+      return uri
+    end
   end
 end

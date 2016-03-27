@@ -1,3 +1,6 @@
+trip1 = Trip.create({ name: 'Spring 2016' })
+trip2 = Trip.create({ name: 'Portland' })
+
 Event.create([
   {
     publish: true,

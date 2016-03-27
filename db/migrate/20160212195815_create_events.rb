@@ -1,8 +1,10 @@
 class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
+      #t.integer :trip_id, :null => false
       t.boolean :publish, :null => false, :default => true
       t.integer :cost
+      t.string :photo
       t.text :description
       t.json :geolocation
       t.text :category, :null => false, :default => 'location'

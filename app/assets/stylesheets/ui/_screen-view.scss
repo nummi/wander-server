@@ -1,0 +1,5 @@
+.screen-view {
+  overflow: hidden;
+  @include position(absolute, 0 0 0 0);
+  background: #fff;
+}

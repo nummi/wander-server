@@ -6,5 +6,6 @@ class EventSerializer < ActiveModel::Serializer
              :geolocation,
              :category,
              :venue,
-             :weather
+             :weather,
+             :photo
 end

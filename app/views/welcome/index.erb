@@ -1,0 +1,69 @@
+<div class="display-view">
+  <div class="display-view-list-section">
+    <% @events.each do |event| %>
+      <div class="event-display" id="event-<%= event.id %>">
+        <div class="event-display-content">
+          <div class="event-display-category">
+            <%= event.category %> &ndash; <%= time_ago_in_words event.created_at %> ago &ndash; <%= time_tag event.created_at %>
+          </div>
+
+          <div class="event-display-venue-name">
+            <%= event.display_text %>
+          </div>
+
+          <div class="event-display-meta flex-group">
+            <% if event.cost > 0 %>
+              <div class="flex-element">
+                <%= number_to_currency event.cost/100 %>
+              </div>
+            <% end %>
+
+            <% if event.weather['temp_F'] %>
+              <div class="flex-element">
+                <%= event.weather['temp_F'] %>F&#176;
+              </div>
+            <% end %>
+
+            <% if event.weather['weatherCode'] %>
+              <div class="flex-element">
+                <img class="event-display-weather-icon" src="<%= event.icon_path %>">
+              </div>
+            <% end %>
+
+            <% if event.weather['weatherDesc'] %>
+              <div class="flex-element">
+                <%event.weather['weatherDesc'].each do |desc| %>
+                  <%= desc['value'] %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="event-display-sub-content">
+          <% if event.photo.url %>
+            <img src="<%= event.photo.url(:thumbnail) %>"
+                 data-full-src="<%= event.photo.url %>"
+                 class="event-display-small-image">
+          <% else %>
+            Sub-Content
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="display-view-map-section" id="map"></div>
+</div>
+
+<script type="text/javascript" id="data">
+  window.events = [
+    <% @events.each do |e| %>
+      {
+        id: <%= e.id %>,
+        displayText: '<%= e.display_text %>',
+        latitude: <%= e.geolocation['latitude'] %>,
+        longitude: <%= e.geolocation['longitude'] %>
+      },
+    <% end %>
+  ];
+</script>

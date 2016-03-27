@@ -1,0 +1,75 @@
+.event-display {
+  position: relative;
+  border-bottom: 1px solid #eee;
+  padding: 3rem 3rem 1.25rem 3rem;
+  font-family: 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+  @include transition(all 0.1s ease-in-out);
+  cursor: pointer;
+
+  &:hover {
+    background: #fafafa;
+  }
+
+  &:after {
+    @include position(absolute, 0 0 0 auto);
+    @include transition(width 0.1s ease-in-out);
+    width: 0;
+    background: adjust-color($ios-blue, $lightness: 47);
+    content: '';
+  }
+}
+
+.event-display--active {
+  &:after {
+    width: 100%;
+  }
+}
+
+.event-display-content {
+  position: relative;
+  z-index: 1;
+}
+
+.event-display-category {
+  position: relative;
+  margin-bottom: 0.5rem;
+  color: #999;
+  font-size: 1.0rem;
+  text-transform: uppercase;
+}
+
+.event-display-venue-name {
+  font-size: 2.4rem;
+  font-weight: 300;
+}
+
+.event-display-meta {
+  @include justify-content(flex-start);
+  @include align-items(center);
+  font-size: 1.2rem;
+
+  .flex-element {
+    @include flex-grow(0);
+    padding-right: 1.5rem;
+  }
+}
+
+.event-display-weather-icon {
+  width: 40px;
+}
+
+.event-display-sub-content {
+  position: relative;
+  display: none;
+  z-index: 1;
+
+  img {
+    width: 100%;
+  }
+}
+
+.event-display--active {
+  .event-display-sub-content {
+    display: block;
+  }
+}

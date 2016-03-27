@@ -1,0 +1,37 @@
+.table-view {
+  list-style-type: none;
+  overflow: auto;
+}
+
+.table-view-item {
+  display: block;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 1.75rem;
+  font-size: 1.4rem;
+}
+
+.table-view-item--search {
+  border-bottom: none;
+  padding: 0.75rem;
+  background: #ddd;
+
+  input {
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.3rem;
+    background: #fff;
+  }
+}
+
+.table-view-item-text-label {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.table-view-item-text-label-detail {
+  font-size: 1.3rem;
+  color: #555;
+}
