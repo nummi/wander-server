@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    Rails.logger '----------------------------- CREATE ACTiON CALLED'
+    logger.debug '----------------------------- CREATE ACTiON CALLED'
     unless params[:event][:photo].empty?
       params[:event][:photo] = convert_to_upload(params[:event][:photo])
     end
@@ -50,7 +50,7 @@ class EventsController < ApplicationController
   end
 
   def convert_to_upload(image)
-    Rails.logger '--------------- convert_to_upload called'
+    logger.debug '--------------- convert_to_upload called'
     image_data = split_base64(image[:data])
 
     temp_img_file = Tempfile.new("data_uri-upload")
