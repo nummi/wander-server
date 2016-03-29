@@ -1,6 +1,7 @@
 .table-view {
   list-style-type: none;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table-view-item {
