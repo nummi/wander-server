@@ -29,6 +29,14 @@ Event.create([
   },
   {
     publish: true,
+    cost: 0,
+    geolocation: { latitude: 39.4494446, longitude: -87.4346586 },
+    category: 'message',
+    description: 'Made it to our hotel safe and sound',
+    weather: { 'cloudcover': '75', 'FeelsLikeC': '-9', 'FeelsLikeF': '15', 'humidity': '63', 'observation_time': '07:06 PM', 'precipMM': '0.0', 'pressure': '1018', 'temp_C': '-3', 'temp_F': '27', 'visibility': '16', 'weatherCode': '116', 'weatherDesc': [ { 'value': 'Partly Cloudy' } ], 'weatherIconUrl': [ { 'value': 'http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0002_sunny_intervals.png' } ], 'winddir16Point': 'ENE', 'winddirDegree': '60', 'windspeedKmph': '24', 'windspeedMiles': '15' }
+  },
+  {
+    publish: true,
     cost: 3874,
     geolocation: { latitude: 37.9815929, longitude: -91.7215187 },
     category: 'expense',
@@ -71,7 +79,7 @@ Event.create([
     publish: true,
     cost: 0,
     geolocation: { latitude: 36.0378636, longitude: -112.1178674 },
-    category: 'photo',
+    category: 'location',
     venue: { name: 'Grand Canyon' },
     weather: { 'cloudcover': '75', 'FeelsLikeC': '-9', 'FeelsLikeF': '15', 'humidity': '63', 'observation_time': '07:06 PM', 'precipMM': '0.0', 'pressure': '1018', 'temp_C': '-3', 'temp_F': '27', 'visibility': '16', 'weatherCode': '116', 'weatherDesc': [ { 'value': 'Partly Cloudy' } ], 'weatherIconUrl': [ { 'value': 'http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0002_sunny_intervals.png' } ], 'winddir16Point': 'ENE', 'winddirDegree': '60', 'windspeedKmph': '24', 'windspeedMiles': '15' }
   },

@@ -13,10 +13,14 @@ class Event < ActiveRecord::Base
   def display_text
     if venue && !(venue['name'].empty?)
       venue['name']
-    elsif description
-      description
     else
-      'no name'
+      if category == 'message'
+        'Message'
+      elsif description
+        description.truncate(30)
+      else
+        category.capitalize
+      end
     end
   end
 

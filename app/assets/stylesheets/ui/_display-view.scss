@@ -10,8 +10,10 @@
 .display-view-list-section {
   overflow: auto;
   flex-basis: 40%;
+  max-width: 600px;
 }
 
 .display-view-map-section {
   flex-basis: 60%;
+  flex-grow: 1;
 }

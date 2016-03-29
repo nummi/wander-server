@@ -34,13 +34,55 @@
   position: relative;
   margin-bottom: 0.5rem;
   color: #999;
-  font-size: 1.0rem;
-  text-transform: uppercase;
+  font-size: 1.1rem;
+  text-transform: lowercase;
+}
+
+.event-display-description {
+  font-size: 1.2rem;
+}
+
+.event-display-cost {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  font-size: 60px;
+  font-weight: bold;
+  letter-spacing: -0.075rem;
+  opacity: 0.08;
+}
+
+@media screen and (max-width: 1250px) {
+  .event-display-cost {
+    top: 10px;
+    font-size: 40px;
+  }
+}
+
+.event-display-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0.12;
+
+  img { width: 60px; }
 }
 
 .event-display-venue-name {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   font-weight: 300;
+}
+
+@media screen and (min-width: 1400px) {
+  .event-display-venue-name {
+    font-size: 3.2rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .event-display-venue-name {
+    font-size: 2.2rem;
+  }
 }
 
 .event-display-meta {
@@ -50,12 +92,12 @@
 
   .flex-element {
     @include flex-grow(0);
-    padding-right: 1.5rem;
+    padding-right: 1rem;
   }
 }
 
 .event-display-weather-icon {
-  width: 40px;
+  width: 60px;
 }
 
 .event-display-sub-content {

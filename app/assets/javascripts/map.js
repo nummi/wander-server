@@ -13,6 +13,11 @@ window.markerTapped = function(map, marker, event){
   window.scrollToHighlight();
 };
 
+window.closeEvent = function() {
+  infoWindow.close();
+  window.clearHighlight();
+};
+
 window.clearHighlight = function() {
   $('.event-display').removeClass('event-display--active');
 };
@@ -31,10 +36,11 @@ window.onload = function() {
 
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: 36.9471936,
-      lng: -88.58287,
+      lat: window.events[0].latitude,
+      lng: window.events[0].longitude,
     },
-    zoom: 5
+    zoom: 5,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
   });
 
   // -- Draw path
@@ -88,6 +94,13 @@ window.onload = function() {
   });
 
   $('.event-display').on('click', function(e) {
+    if($(this).hasClass('event-display--active')) {
+      if(!$(e.target).hasClass('event-display-small-image')) {
+        window.closeEvent();
+      }
+      return;
+    }
+
     var id = parseInt(
       $(this).attr('id').replace('event-', '')
     );

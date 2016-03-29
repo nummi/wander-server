@@ -42,6 +42,7 @@ class EventsController < ApplicationController
     params.require(:event).permit(
       :cost,
       :photo,
+      :category,
       :description).tap do |whitelisted|
         whitelisted[:geolocation] = params[:event][:geolocation]
         whitelisted[:venue]       = params[:event][:venue]

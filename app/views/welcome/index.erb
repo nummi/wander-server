@@ -4,20 +4,32 @@
       <div class="event-display" id="event-<%= event.id %>">
         <div class="event-display-content">
           <div class="event-display-category">
-            <%= event.category %> &ndash; <%= time_ago_in_words event.created_at %> ago &ndash; <%= time_tag event.created_at %>
+            <%= time_ago_in_words event.created_at %> ago &ndash; <%= event.created_at.strftime('%B %e, %l:%M %p') %>
           </div>
+
+          <% if event.category == 'photo' %>
+            <div class="event-display-icon event-display-icon--photo">
+              <img src="/images/photo.svg">
+            </div>
+          <% elsif event.category == 'location' %>
+            <div class="event-display-icon event-display-icon--location">
+              <img src="/images/location.svg">
+            </div>
+          <% elsif event.category == 'expense' && event.cost > 0 %>
+            <div class="event-display-cost">
+              <%= number_to_currency event.cost/100 %>
+            </div>
+          <% elsif event.category == 'message' %>
+            <div class="event-display-icon event-display-icon--message">
+              <img src="/images/message.svg">
+            </div>
+          <% end %>
 
           <div class="event-display-venue-name">
             <%= event.display_text %>
           </div>
 
           <div class="event-display-meta flex-group">
-            <% if event.cost > 0 %>
-              <div class="flex-element">
-                <%= number_to_currency event.cost/100 %>
-              </div>
-            <% end %>
-
             <% if event.weather['temp_F'] %>
               <div class="flex-element">
                 <%= event.weather['temp_F'] %>F&#176;
@@ -40,12 +52,14 @@
           </div>
         </div>
         <div class="event-display-sub-content">
+          <% if event.description %>
+            <div class="event-display-description"><%= event.description %></div>
+          <% end %>
+          <% if event.description && event.photo.url %><br><br><% end %>
           <% if event.photo.url %>
             <img src="<%= event.photo.url(:thumbnail) %>"
                  data-full-src="<%= event.photo.url %>"
                  class="event-display-small-image">
-          <% else %>
-            Sub-Content
           <% end %>
         </div>
       </div>
