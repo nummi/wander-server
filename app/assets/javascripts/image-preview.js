@@ -1,8 +1,8 @@
 window.displayFullscreenImage = function(src) {
-  const windowWidth  = $(window).width();
-  const windowHeight = $(window).height();
+  var windowWidth  = $(window).width();
+  var windowHeight = $(window).height();
 
-  const container = $('<div class="full-image-container"><span>&times;</span><img src="' + src + '"></div>');
+  var container = $('<div class="full-image-container"><span>&times;</span><img src="' + src + '"></div>');
   $('body').append(container.hide());
   container.fadeIn(100);
 };

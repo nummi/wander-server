@@ -1,14 +1,14 @@
 window.onload = function() {
 
-  const eventList = _.clone(window.events);
+  var eventList = _.clone(window.events);
 
-  const findEventById = function(id) {
+  var findEventById = function(id) {
     return _.find(eventList, function(e){
       return e.id === id;
     });
   };
 
-  const markerTapped = function(map, marker, event, infoWindow){
+  var markerTapped = function(map, marker, event, infoWindow){
     infoWindow.close();
     infoWindow.setContent(event.displayText);
     infoWindow.open(map, marker);
@@ -17,26 +17,26 @@ window.onload = function() {
     scrollToHighlight();
   };
 
-  const closeEvent = function(infoWindow) {
+  var closeEvent = function(infoWindow) {
     infoWindow.close();
     clearHighlight();
   };
 
-  const clearHighlight = function() {
+  var clearHighlight = function() {
     $('.event-display').removeClass('event-display--active');
   };
 
-  const setHighlight = function(eventId) {
+  var setHighlight = function(eventId) {
     $('#event-' + eventId).addClass('event-display--active');
   };
 
-  const scrollToHighlight = function() {
+  var scrollToHighlight = function() {
     $('.display-view-list-section').scrollTo($('.event-display--active'), 300);
   };
 
   // -- Create map
 
-  const map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: eventList[0].latitude,
       lng: eventList[0].longitude,
@@ -48,7 +48,7 @@ window.onload = function() {
 
   // -- Draw path
 
-  const path = new google.maps.Polyline({
+  var path = new google.maps.Polyline({
     path: eventList.map(function(event) {
       return {
         lat: event.latitude,
@@ -65,16 +65,16 @@ window.onload = function() {
 
   // -- Create infoWindow
 
-  const infoWindow = new google.maps.InfoWindow({
+  var infoWindow = new google.maps.InfoWindow({
     content: ''
   });
 
   // -- Place markers
 
-  let delay = 0;
+  var delay = 0;
   eventList.forEach(function(event) {
     window.setTimeout(function() {
-      const marker = new google.maps.Marker({
+      var marker = new google.maps.Marker({
         position: {
           lat: event.latitude,
           lng: event.longitude
@@ -102,11 +102,11 @@ window.onload = function() {
       return;
     }
 
-    const id = parseInt(
+    var id = parseInt(
       $(this).attr('id').replace('event-', '')
     );
 
-    const event = findEventById(id);
+    var event = findEventById(id);
 
     markerTapped(map, event.marker, event, infoWindow);
   });
