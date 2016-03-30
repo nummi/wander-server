@@ -1,7 +1,4 @@
 if ENV.has_key? 'AWS_ACCESS_KEY_ID'
-  Rails.logger.debug '----------------------------------------'
-  Rails.logger.debug ENV['AWS_ACCESS_KEY_ID']
-  Rails.logger.debug '----------------------------------------'
   CarrierWave.configure do |config|
     config.fog_credentials = {
       provider: 'AWS',
