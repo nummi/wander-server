@@ -203,6 +203,7 @@ GEM
     pry-rescue (1.4.2)
       interception (>= 0.5)
       pry
+    puma (2.12.2)
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-test (0.6.3)
@@ -274,6 +275,7 @@ DEPENDENCIES
   pry-rails
   pry-remote
   pry-rescue
+  puma
   rack-cors
   rails (= 4.2.4)
   responders (~> 2.0)
