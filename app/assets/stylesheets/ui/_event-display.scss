@@ -39,7 +39,8 @@
 }
 
 .event-display-description {
-  font-size: 1.2rem;
+  position: relative;
+  font-size: 1.4rem;
 }
 
 .event-display-cost {
@@ -107,6 +108,17 @@
 
   img {
     width: 100%;
+  }
+
+  h1 {
+    padding-top: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .unit {
+    padding-left: 0.25rem;
+    font-size: 80%;
+    opacity: 0.8;
   }
 }
 

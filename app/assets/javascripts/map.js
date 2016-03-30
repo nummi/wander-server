@@ -41,7 +41,7 @@ window.onload = function() {
       lat: eventList[0].latitude,
       lng: eventList[0].longitude,
     },
-    zoom: 5,
+    zoom: 6,
     mapTypeId: google.maps.MapTypeId.TERRAIN,
     mapTypeControl: false
   });
