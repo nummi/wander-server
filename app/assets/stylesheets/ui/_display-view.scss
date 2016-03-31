@@ -1,7 +1,6 @@
 .display-view {
   @include position(absolute, 0 0 0 0);
   @include display(flex);
-  @include flex-direction(row);
   @include flex-wrap(nowrap);
   @include align-items(stretch);
   @include align-content(stretch);
@@ -9,12 +8,36 @@
 
 .display-view-list-section {
   overflow: auto;
-  flex-basis: 40%;
-  max-width: 600px;
   -webkit-overflow-scrolling: touch;
 }
 
-.display-view-map-section {
-  flex-basis: 60%;
-  flex-grow: 1;
+
+@media screen and (max-width: 750px) {
+  .display-view {
+    @include flex-direction(column);
+  }
+
+  .display-view-list-section {
+    flex-basis: 50%;
+  }
+
+  .display-view-map-section {
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .display-view {
+    @include flex-direction(row);
+  }
+
+  .display-view-list-section {
+    flex-basis: 40%;
+    max-width: 600px;
+  }
+
+  .display-view-map-section {
+    flex-basis: 60%;
+    flex-grow: 1;
+  }
 }
