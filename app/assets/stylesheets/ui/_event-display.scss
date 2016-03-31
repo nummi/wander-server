@@ -19,6 +19,13 @@
   }
 }
 
+@media screen and (max-width: 800px) {
+  .event-display {
+    padding-top: 1.5rem;
+    padding-bottom: 0;
+  }
+}
+
 .event-display--active {
   &:after {
     width: 100%;
@@ -53,6 +60,12 @@
   opacity: 0.08;
 }
 
+@media screen and (max-width: 800px) {
+  .event-display-cost {
+    font-size: 32px;
+  }
+}
+
 @media screen and (max-width: 1250px) {
   .event-display-cost {
     top: 10px;
@@ -67,6 +80,12 @@
   opacity: 0.12;
 
   img { width: 60px; }
+}
+
+@media screen and (max-width: 800px) {
+  .event-display-icon img {
+    width: 45px;
+  }
 }
 
 .event-display-venue-name {

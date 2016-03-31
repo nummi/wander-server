@@ -12,7 +12,7 @@
 }
 
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 800px) {
   .display-view {
     @include flex-direction(column);
   }
