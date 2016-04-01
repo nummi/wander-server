@@ -12,6 +12,7 @@ window.onload = function() {
     infoWindow.close();
     infoWindow.setContent(event.displayText);
     infoWindow.open(map, marker);
+    map.setCenter(marker.getPosition());
     clearHighlight();
     setHighlight(event.id);
     scrollToHighlight();
