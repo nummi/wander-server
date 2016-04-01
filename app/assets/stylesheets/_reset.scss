@@ -28,6 +28,10 @@ html {
   box-sizing: inherit;
 }
 
+html, body {
+  overflow: hidden;
+}
+
 body {
   font-family: system, -apple-system, '.SFNSDisplay-Regular', HelveticaNeue, LucidaGrande;
   line-height: 1;
