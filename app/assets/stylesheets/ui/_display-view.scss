@@ -13,7 +13,7 @@
 }
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 875px) {
   .display-view {
     @include flex-direction(column);
   }
@@ -24,10 +24,12 @@
 
   .display-view-map-section {
     flex-basis: 50%;
+    box-shadow: 0 -7px 10px rgba(0,0,0, 0.065);
+    z-index: 1;
   }
 }
 
-@media screen and (min-width: 751px) {
+@media screen and (min-width: 876px) {
   .display-view {
     @include flex-direction(row);
   }

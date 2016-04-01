@@ -137,6 +137,12 @@
   width: 60px;
 }
 
+@media screen and (max-width: 750px) {
+  .event-display-weather-icon {
+    width: 40px;
+  }
+}
+
 .event-display-sub-content {
   position: relative;
   display: none;
