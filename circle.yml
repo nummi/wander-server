@@ -44,4 +44,3 @@ deployment:
     commands:
       - git push git@heroku.com:wander-server.git $CIRCLE_SHA1:master
       - heroku run rake db:migrate --app wander-server
-      - heroku run rake db:reset --app wander-server
