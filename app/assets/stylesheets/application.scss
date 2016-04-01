@@ -48,18 +48,19 @@ dd {
 }
 
 .full-image-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  bottom: 20px;
-  left: 20px;
+  overflow: auto;
+  @include position(fixed, 0px 0px 0px 0px);
+  padding: 20px;
   z-index: 2000;
   cursor: pointer;
+  background: rgba(255,255,255, 0.7);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(10px);
 
   span {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 2px;
+    right: 2px;
     width: 40px;
     height: 40px;
     border: 2px solid rgba(255,255,255, 0.8);

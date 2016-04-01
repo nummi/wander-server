@@ -36,11 +36,18 @@ window.onload = function() {
 
   // -- Create map
 
+  var centerCoords = {
+    lat: 41.681961,
+    lng: -81.2821347
+  };
+
+  if(eventList.length) {
+    centerCoords.lat = eventList[0].latitude;
+    centerCoords.lng = eventList[0].longitude;
+  }
+
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {
-      lat: eventList[0].latitude,
-      lng: eventList[0].longitude,
-    },
+    center: centerCoords,
     zoom: 6,
     mapTypeId: google.maps.MapTypeId.TERRAIN,
     mapTypeControl: false

@@ -19,6 +19,18 @@
   }
 }
 
+.event-display-empty-state {
+  @include position(absolute, 0px 0px 0px 0px);
+  @include display(flex);
+  @include align-items(center);
+  color: #333;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+
+  div { width: 100%; }
+}
+
 @media screen and (max-width: 800px) {
   .event-display {
     padding: 1.5rem 2rem 0 2rem;
