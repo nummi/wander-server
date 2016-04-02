@@ -3,7 +3,7 @@ $(document).ready(function($) {
     var windowWidth  = $(window).width();
     var windowHeight = $(window).height();
 
-    var container = $('<div class="full-image-container"><span>&times;</span><img src="' + src + '"></div>');
+    var container = $('<div class="full-image-container"><span class="close-circle">&times;</span><img src="' + src + '"></div>');
     $('body').append(container.hide());
     container.fadeIn(100);
   };

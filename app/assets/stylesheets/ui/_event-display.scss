@@ -17,6 +17,8 @@
     background: adjust-color($ios-blue, $lightness: 47);
     content: '';
   }
+
+  .close-circle { display: none; }
 }
 
 .event-display-empty-state {
@@ -169,4 +171,8 @@
   .event-display-sub-content {
     display: block;
   }
+
+  .close-circle { display: block; }
+
+  .event-display-icon { display: none; }
 }

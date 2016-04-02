@@ -41,7 +41,6 @@ dd {
   }
 }
 
-
 .ember-cli-g-map {
   width: 100%;
   height: 400px;
@@ -54,23 +53,8 @@ dd {
   z-index: 2000;
   cursor: pointer;
   background: rgba(255,255,255, 0.7);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
   backdrop-filter: saturate(180%) blur(10px);
-
-  span {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    width: 40px;
-    height: 40px;
-    border: 2px solid rgba(255,255,255, 0.8);
-    border-radius: 50%;
-    color: #fff;
-    font-size: 40px;
-    line-height: 77%;
-    text-align: center;
-    background-color: rgba(0,0,0, 0.5);
-  }
 
   img {
     width: 100%;
@@ -81,4 +65,19 @@ dd {
 
 .file-picker__dropzone {
   font-size: 1.2rem;
+}
+
+.close-circle {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255,255,255, 0.8);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 40px;
+  line-height: 77%;
+  text-align: center;
+  background-color: rgba(0,0,0, 0.5);
 }
