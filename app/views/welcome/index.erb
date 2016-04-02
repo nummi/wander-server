@@ -9,7 +9,7 @@
       <div class="event-display" id="event-<%= event.id %>">
         <div class="event-display-content">
           <div class="event-display-category">
-            <%= time_ago_in_words event.created_at %> ago &ndash; <%= event.created_at.strftime('%B %e, %l:%M %p') %>
+            <%= time_ago_in_words event.created_at %> ago &ndash; <%= event.created_at.strftime('%B %e, %l:%M %p') %> EST
           </div>
 
           <% if event.category == 'photo' %>
