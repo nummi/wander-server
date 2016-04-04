@@ -1,83 +1,8 @@
-$title-bar-height: 44px;
+$ios-blue: #007AFF;
 
 @import 'bourbon/bourbon';
 
 @import 'reset';
-@import 'z-index';
-@import 'colors';
-
 @import 'flex-base';
 @import 'animations/base';
-@import 'components/base';
 @import 'ui/base';
-@import 'screens/base';
-
-
-// Modifiers ------------
-
-.below-title-bar {
-  top: $title-bar-height;
-}
-
-dl {
-  padding-top: 1rem;
-}
-
-dt {
-  display: inline;
-  padding-right: 0.5rem;
-  color: $ios-blue;
-  font-size: 1.5rem;
-}
-
-dd {
-  font-size: 1.5rem;
-  display: inline;
-
-  &:after {
-    content: '';
-    display: block;
-    margin-bottom: 7px;
-  }
-}
-
-.ember-cli-g-map {
-  width: 100%;
-  height: 400px;
-}
-
-.full-image-container {
-  overflow: auto;
-  @include position(fixed, 0px 0px 0px 0px);
-  padding: 20px;
-  z-index: 2000;
-  cursor: pointer;
-  background: rgba(255,255,255, 0.7);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  backdrop-filter: saturate(180%) blur(10px);
-
-  img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(0,0,0, 0.25);
-  }
-}
-
-.file-picker__dropzone {
-  font-size: 1.2rem;
-}
-
-.close-circle {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(255,255,255, 0.8);
-  border-radius: 50%;
-  color: #fff;
-  font-size: 40px;
-  line-height: 77%;
-  text-align: center;
-  background-color: rgba(0,0,0, 0.5);
-}

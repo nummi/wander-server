@@ -1,0 +1,22 @@
+dl {
+  padding-top: 1rem;
+}
+
+dt {
+  display: inline;
+  padding-right: 0.5rem;
+  color: $ios-blue;
+  font-size: 1.5rem;
+}
+
+dd {
+  font-size: 1.5rem;
+  display: inline;
+
+  &:after {
+    content: '';
+    display: block;
+    margin-bottom: 7px;
+  }
+}
+
