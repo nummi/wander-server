@@ -2,7 +2,10 @@
   <div class="display-view-list-section">
     <% if @events.count < 1 %>
       <div class="event-display-empty-state">
-        <div>The Journey begins April 8</div>
+        <div style="position: relative;">
+          <span style="position: absolute; z-index: 1; top: 50%; right: 0; left: 0; text-shadow: 0 1px 0px #fff;">The Journey begins April 8</span>
+          <img src="/images/crv.png" style="opacity: 0.15; display: block; width: 75%; margin: 0 auto;">
+        </div>
       </div>
     <% end %>
     <% @events.each do |event| %>
