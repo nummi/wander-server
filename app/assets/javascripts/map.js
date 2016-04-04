@@ -1,4 +1,8 @@
 window.onload = function() {
+  // car animation
+  if($('.event-display-empty-state').length) {
+    $('.event-display-empty-state img').addClass('car-active');
+  }
 
   var eventList = _.clone(window.events);
 
