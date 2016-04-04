@@ -1,7 +1,9 @@
 window.onload = function() {
   // car animation
   if($('.event-display-empty-state').length) {
-    $('.event-display-empty-state img').addClass('car-active');
+    window.setTimeout(function() {
+      $('.event-display-empty-state img').addClass('car-active');
+    }, 300);
   }
 
   var eventList = _.clone(window.events);
