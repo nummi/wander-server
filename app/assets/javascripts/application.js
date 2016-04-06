@@ -2,3 +2,4 @@
 //= require gmaps
 //= require image-preview
 //= require map
+//= require comments

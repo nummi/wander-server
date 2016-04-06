@@ -1,0 +1,17 @@
+<% if event.category == 'photo' %>
+  <div class="event-display-icon event-display-icon--photo">
+    <img src="/images/photo.svg">
+  </div>
+<% elsif event.category == 'location' %>
+  <div class="event-display-icon event-display-icon--location">
+    <img src="/images/location.svg">
+  </div>
+<% elsif event.category == 'expense' && event.cost > 0 %>
+  <div class="event-display-cost">
+    <%= number_to_currency event.cost/100 %>
+  </div>
+<% elsif event.category == 'message' %>
+  <div class="event-display-icon event-display-icon--message">
+    <img src="/images/message.svg">
+  </div>
+<% end %>

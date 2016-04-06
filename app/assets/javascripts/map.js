@@ -1,4 +1,5 @@
-window.onload = function() {
+$(window).on('load', function() {
+
   // car animation
   if($('.event-display-empty-state').length) {
     window.setTimeout(function() {
@@ -110,9 +111,6 @@ window.onload = function() {
 
   $('.event-display').on('click', function(e) {
     if($(this).hasClass('event-display--active')) {
-      if(!$(e.target).hasClass('event-display-small-image')) {
-        closeEvent(infoWindow);
-      }
       return;
     }
 
@@ -125,4 +123,10 @@ window.onload = function() {
     markerTapped(map, event.marker, event, infoWindow);
   });
 
-}; // window.onload
+  $('.event-display .close-circle').on('click', function(e) {
+    closeEvent(infoWindow);
+    e.preventDefault();
+    e.stopPropagation();
+  });
+
+}); // window.onload

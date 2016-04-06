@@ -1,12 +1,7 @@
 <div class="display-view">
   <div class="display-view-list-section">
     <% if @events.count < 1 %>
-      <div class="event-display-empty-state">
-        <div>
-          <span>The Journey begins April 8</span>
-          <img src="/images/crv.png">
-        </div>
-      </div>
+      <%= render 'welcome/empty' %>
     <% end %>
     <% @events.each do |event| %>
       <div class="event-display" id="event-<%= event.id %>">
@@ -15,23 +10,7 @@
             <%= time_ago_in_words event.created_at %> ago &ndash; <%= event.created_at.strftime('%B %e, %l:%M %p') %> EST
           </div>
 
-          <% if event.category == 'photo' %>
-            <div class="event-display-icon event-display-icon--photo">
-              <img src="/images/photo.svg">
-            </div>
-          <% elsif event.category == 'location' %>
-            <div class="event-display-icon event-display-icon--location">
-              <img src="/images/location.svg">
-            </div>
-          <% elsif event.category == 'expense' && event.cost > 0 %>
-            <div class="event-display-cost">
-              <%= number_to_currency event.cost/100 %>
-            </div>
-          <% elsif event.category == 'message' %>
-            <div class="event-display-icon event-display-icon--message">
-              <img src="/images/message.svg">
-            </div>
-          <% end %>
+          <%= render 'welcome/icon', event: event %>
 
           <div class="close-circle">&times;</div>
 
@@ -39,27 +18,7 @@
             <%= event.display_text %>
           </div>
 
-          <div class="event-display-meta flex-group">
-            <% if event.weather['temp_F'] %>
-              <div class="flex-element">
-                <%= event.weather['temp_F'] %>F&#176;
-              </div>
-            <% end %>
-
-            <% if event.weather['weatherCode'] %>
-              <div class="flex-element">
-                <img class="event-display-weather-icon" src="<%= event.icon_path %>">
-              </div>
-            <% end %>
-
-            <% if event.weather['weatherDesc'] %>
-              <div class="flex-element">
-                <%event.weather['weatherDesc'].each do |desc| %>
-                  <%= desc['value'] %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
+          <%= render 'welcome/meta', event: event %>
         </div>
         <div class="event-display-sub-content">
           <% if event.description %>
@@ -72,39 +31,27 @@
                  class="event-display-small-image">
           <% end %>
 
-          <% if event.weather %>
-            <h1>Weather</h1>
-            <dl>
-              <dt>Windspeed</dt>
-              <dd><%= event.weather['windspeedMiles'] %><span class="unit">MPH</span></dd>
+          <div class="event-weather-location-wrapper">
+            <% if event.weather %>
+              <div class="event-display-sub-content-section event-display-sub-content-section--weather">
+                <%= render 'welcome/weather', event: event %>
+              </div>
+            <% end %>
 
-              <dt>Feels like</dt>
-              <dd><%= event.weather['FeelsLikeF'] %><span class="unit">F</span></dd>
+            <% if event.geolocation %>
+              <div class="event-display-sub-content-section">
+                <%= render 'welcome/location', event: event %>
+              </div>
+            <% end %>
+          </div>
 
-              <dt>Humidity</dt>
-              <dd><%= event.weather['humidity'] %><span class="unit">%</span></dd>
-
-              <dt>Visibility</dt>
-              <dd><%= event.weather['visibility'] %><span class="unit">KM</span></dd>
-
-              <dt>Cloud cover</dt>
-              <dd><%= event.weather['cloudcover'] %><span class="unit">%</span></dd>
-            </dl>
-          <% end %>
-
-          <% if event.geolocation %>
-            <h1>Location</h1>
-            <dl>
-              <dt>Latitude</dt>
-              <dd><%= event.geolocation['latitude'] %></dd>
-
-              <dt>Longitude</dt>
-              <dd><%= event.geolocation['longitude'] %></dd>
-
-              <dt>Altitude</dt>
-              <dd><%= event.geolocation['altitude'] %></dd>
-            </dl>
-          <% end %>
+          <h1>Comments</h1>
+          <div class="comment comment-new comment-template">
+            <div class="comment-name"></div>
+            <div class="comment-text"></div>
+          </div>
+          <%= render 'welcome/comments', comments: event.comments %>
+          <%= render 'welcome/comment_form', event_id: event.id %>
         </div>
       </div>
     <% end %>
@@ -113,15 +60,4 @@
   <div class="display-view-map-section" id="map"></div>
 </div>
 
-<script type="text/javascript" id="data">
-  window.events = [
-    <% @events.each do |e| %>
-      {
-        id: <%= e.id %>,
-        displayText: '<%= e.display_text %>',
-        latitude: <%= e.geolocation['latitude'] %>,
-        longitude: <%= e.geolocation['longitude'] %>
-      },
-    <% end %>
-  ];
-</script>
+<%= render 'welcome/json', events: @events %>

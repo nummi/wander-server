@@ -1,0 +1,12 @@
+<script type="text/javascript" id="data">
+  window.events = [
+    <% events.each do |e| %>
+      {
+        id: <%= e.id %>,
+        displayText: '<%= e.display_text %>',
+        latitude: <%= e.geolocation['latitude'] %>,
+        longitude: <%= e.geolocation['longitude'] %>
+      },
+    <% end %>
+  ];
+</script>

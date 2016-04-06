@@ -1,0 +1,17 @@
+<h1>Weather</h1>
+<dl>
+  <dt>Windspeed</dt>
+  <dd><%= event.weather['windspeedMiles'] %><span class="unit">MPH</span></dd>
+
+  <dt>Feels like</dt>
+  <dd><%= event.weather['FeelsLikeF'] %>&#176; <span class="unit">F</span></dd>
+
+  <dt>Humidity</dt>
+  <dd><%= event.weather['humidity'] %><span class="unit">%</span></dd>
+
+  <dt>Visibility</dt>
+  <dd><%= event.weather['visibility'] %><span class="unit">KM</span></dd>
+
+  <dt>Cloud cover</dt>
+  <dd><%= event.weather['cloudcover'] %><span class="unit">%</span></dd>
+</dl>

@@ -1,0 +1,25 @@
+<div class="event-display-meta flex-group">
+  <% if event.weather['temp_F'] %>
+    <div class="flex-element">
+      <%= event.weather['temp_F'] %>&#176; F
+    </div>
+  <% end %>
+
+  <% if event.weather['weatherCode'] %>
+    <div class="flex-element">
+      <img class="event-display-weather-icon" src="<%= event.icon_path %>">
+    </div>
+  <% end %>
+
+  <% if event.weather['weatherDesc'] %>
+    <div class="flex-element">
+      <%event.weather['weatherDesc'].each do |desc| %>
+        <%= desc['value'] %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="flex-element">
+    <%= pluralize(event.comments.count, 'comment') %>
+  </div>
+</div>

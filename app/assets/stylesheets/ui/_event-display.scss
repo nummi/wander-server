@@ -65,9 +65,9 @@
 }
 
 .event-display--active {
-  &:after {
-    width: 100%;
-  }
+  cursor: default;
+
+  &:after { width: 100%; }
 }
 
 .event-display-content {
@@ -181,8 +181,8 @@
   }
 
   h1 {
-    padding-top: 1rem;
-    font-size: 1.1rem;
+    padding: 1rem 0;
+    font-size: 1.2rem;
   }
 
   .unit {
@@ -200,4 +200,19 @@
   .close-circle { display: block; }
 
   .event-display-icon { display: none; }
+}
+
+
+.event-weather-location-wrapper {
+  overflow: hidden;
+}
+
+.event-display-sub-content-section--weather {
+  width: 20.0rem;;
+}
+
+@media screen and (min-width: 545px) {
+  .event-display-sub-content-section {
+    float: left;
+  }
 }

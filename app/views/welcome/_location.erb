@@ -1,0 +1,13 @@
+<h1>Location</h1>
+<dl>
+  <dt>Latitude</dt>
+  <dd><%= event.geolocation['latitude'] %></dd>
+
+  <dt>Longitude</dt>
+  <dd><%= event.geolocation['longitude'] %></dd>
+
+  <% if event.geolocation['altitude'] %>
+    <dt>Altitude</dt>
+    <dd><%= event.geolocation['altitude'] %></dd>
+  <% end %>
+</dl>
