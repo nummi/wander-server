@@ -8,6 +8,6 @@
 
   <% if event.geolocation['altitude'] %>
     <dt>Altitude</dt>
-    <dd><%= event.geolocation['altitude'] %></dd>
+    <dd><%= event.geolocation['altitude'].to_i %> <span class="unit">meters</span></dd>
   <% end %>
 </dl>
