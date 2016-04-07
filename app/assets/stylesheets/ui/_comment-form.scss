@@ -1,17 +1,19 @@
 .comment-form {
   margin-bottom: 2rem;
-  padding-top: 1rem;
 
   textarea,
   input {
     width: 100%;
     margin-bottom: 1rem;
-    border: 1px solid #ccc;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 122, 255, 0.5);
     padding: 0.5rem;
     font-size: 1.3rem;
+    background: rgba(255, 255, 255, 0.7);
 
     &:focus {
       border-color: $ios-blue;
+      background: #fff;
       outline: none;
     }
   }

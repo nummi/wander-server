@@ -22,8 +22,7 @@ $(window).on('load', function() {
 //  HTML
 
     var html = template.clone();
-    html.find('.comment-created-at').text('some time').end()
-        .find('.comment-name').text(name).end()
+    html.find('.comment-name').text(name).end()
         .find('.comment-text').text(text).end()
         .removeClass('comment-template')
         .appendTo(dropZone);

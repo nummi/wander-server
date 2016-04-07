@@ -45,10 +45,12 @@
             <% end %>
           </div>
 
-          <h1>Comments</h1>
           <div class="comment comment-new comment-template">
-            <div class="comment-name"></div>
             <div class="comment-text"></div>
+            <div style="text-align: right">
+              <span class="comment-name"></span>
+              <span class="comment-created-at">just now</span>
+            </div>
           </div>
           <%= render 'welcome/comments', comments: event.comments %>
           <%= render 'welcome/comment_form', event_id: event.id %>

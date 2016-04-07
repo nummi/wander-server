@@ -21,7 +21,9 @@
     <% end %>
   <% end %>
 
-  <div class="flex-element">
-    <%= pluralize(event.comments.count, 'comment') %>
-  </div>
+  <% unless event.comments.empty? %>
+    <div class="flex-element event-display-meta-comment-count">
+      <%= pluralize(event.comments.count, 'comment') %>
+    </div>
+  <% end %>
 </div>

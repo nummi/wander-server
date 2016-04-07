@@ -5,16 +5,18 @@
   font-family: 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;
   @include transition(all 0.1s ease-in-out);
   cursor: pointer;
+  // background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 23px, red 23px, red 24px);
 
   &:hover {
-    background: #fafafa;
+    background-color: #fafafa;
   }
 
   &:after {
     @include position(absolute, 0 0 0 auto);
     @include transition(width 0.1s ease-in-out);
     width: 0;
-    background: adjust-color($ios-blue, $lightness: 47);
+    background-color: adjust-color($ios-blue, $lightness: 47);
+    // background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 23px, red 23px, red 24px);
     content: '';
   }
 
@@ -161,6 +163,11 @@
   }
 }
 
+.event-display-meta-comment-count {
+  border-left: 1px solid #ccc;
+  padding-left: 1rem
+}
+
 .event-display-weather-icon {
   width: 60px;
 }
@@ -178,11 +185,23 @@
 
   img {
     width: 100%;
+    cursor: pointer;
   }
 
   h1 {
+    position: relative;
     padding: 1rem 0;
     font-size: 1.2rem;
+
+    // &:after {
+    //   content: '';
+    //   position: absolute;
+    //   top: 4px;
+    //   left: 0;
+    //   width: 10px;
+    //   height: 1px;
+    //   background: #000;
+    // }
   }
 
   .unit {
