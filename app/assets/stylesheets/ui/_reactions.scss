@@ -1,0 +1,24 @@
+.comments-reactions {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  @include user-select(none);
+}
+
+.comment-reaction {
+  display: inline-block;
+  margin: 0 0.5rem 0.5rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 0.5rem 0.5rem 0.3rem 0.5rem;
+  white-space: nowrap;
+  background-color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.comment-reaction-count {
+  font-size: 1.4rem;
+}

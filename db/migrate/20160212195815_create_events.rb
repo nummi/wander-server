@@ -9,6 +9,7 @@ class CreateEvents < ActiveRecord::Migration
       t.text :category, :null => false, :default => 'location'
       t.json :venue
       t.json :weather
+      t.json :reactions
       t.timestamps
     end
   end

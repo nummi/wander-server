@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20160406140933) do
     t.text     "category",    default: "location", null: false
     t.json     "venue"
     t.json     "weather"
+    t.json     "reactions"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

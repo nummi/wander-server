@@ -1,6 +1,8 @@
 ICON_BASE = '/images/weather-icons/'
 
 class Event < ActiveRecord::Base
+  before_create :set_default_reactions
+
   # belongs_to :trip
   has_many :comments
 
@@ -36,5 +38,43 @@ class Event < ActiveRecord::Base
       full = weather['weatherIconUrl'][0]['value']
       full.gsub('.png', '.svg').split(/.*\/(.*?)$/)[1]
     end
+  end
+
+  def set_default_reactions
+    codes = [
+      {
+        code: '1F60A',
+        description: 'smiling face',
+        count: 0
+      },
+      {
+        code: '1F632',
+        description: 'astonished face',
+        count: 0
+      },
+      {
+        code: '1F44D',
+        description: 'thumbs up',
+        count: 0
+      },
+      {
+        code: '1F4A9',
+        description: 'pile of poo',
+        count: 0
+      },
+      {
+        code: '1F60D',
+        description: 'smiling face with heart-shaped eyes',
+        count: 0
+      },
+      {
+        code: '1F61F',
+        description: 'worried face',
+        count: 0
+      }
+    ]
+
+    self.reactions = {}
+    self.reactions['codes'] = codes
   end
 end

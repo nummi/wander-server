@@ -29,6 +29,21 @@ class EventsController < ApplicationController
     respond_with event
   end
 
+  def react
+    event = Event.find params[:id]
+    oldReactions = params[:event][:reactions]
+    newReactions = oldReactions.map do |r|
+      {
+        code: r[1][:code],
+        count: r[1][:count],
+        description: r[1][:description]
+      }
+    end
+    event.reactions[:codes] = newReactions
+    event.save
+    head :ok
+  end
+
   def destroy
     event = Event.find params[:id]
     event.destroy

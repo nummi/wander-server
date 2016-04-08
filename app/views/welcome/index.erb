@@ -52,7 +52,7 @@
               <span class="comment-created-at">just now</span>
             </div>
           </div>
-          <%= render 'welcome/comments', comments: event.comments %>
+          <%= render 'welcome/comments', comments: event.comments, event: event %>
           <%= render 'welcome/comment_form', event_id: event.id %>
         </div>
       </div>

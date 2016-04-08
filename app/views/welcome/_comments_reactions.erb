@@ -1,0 +1,12 @@
+<div class="comments-reactions" data-event-id="<%= event.id %>">
+  <% event.reactions['codes'].each do |c| %>
+    <span class="comment-reaction"
+          data-code="<%= c['code'] %>"
+          data-count="<%= c['count'] %>"
+          data-description="<%= c['description'] %>"
+          title="<%= c['description'] %>">
+      <%= "&#x#{c['code']};".html_safe %>
+      <span class="comment-reaction-count"><%= c['count'] %></span>
+    </span>
+  <% end %>
+</div>

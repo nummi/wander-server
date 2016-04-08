@@ -3,3 +3,4 @@
 //= require image-preview
 //= require map
 //= require comments
+//= require reactions
