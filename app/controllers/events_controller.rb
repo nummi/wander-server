@@ -57,6 +57,7 @@ class EventsController < ApplicationController
       :cost,
       :photo,
       :category,
+      :publish,
       :description).tap do |whitelisted|
         whitelisted[:geolocation] = params[:event][:geolocation]
         whitelisted[:venue]       = params[:event][:venue]
