@@ -2,7 +2,11 @@ class EventsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   def index
-    events = params.has_key?(:publish) ? Event.where(publish: params[:publish]) : Event.all
+    if params[:admin]
+      events = Event.all
+    else
+      events = Event.all.published
+    end
 
     respond_with(events, {
       each_serializer: EventSerializer
