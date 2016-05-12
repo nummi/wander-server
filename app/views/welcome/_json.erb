@@ -5,7 +5,11 @@
         id: <%= e.id %>,
         displayText: '<%= e.display_text %>',
         latitude: <%= e.geolocation['latitude'] %>,
-        longitude: <%= e.geolocation['longitude'] %>
+        longitude: <%= e.geolocation['longitude'] %>,
+        <% if e.photo && e.photo.url %>
+        <%= "imageSrc: '#{e.photo.url(:thumbnail)}',".html_safe %>
+        <%= "fullImageSrc: '#{e.photo.url.html_safe}',".html_safe %>
+        <% end %>
       },
     <% end %>
   ];

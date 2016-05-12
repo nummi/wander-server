@@ -1,15 +1,5 @@
 /**
- * @method loadImage
- * @param {String} src url to image source
- * @returns {Object} Image object
- */
-var loadImage = function(src) {
-  var img = new Image();
-  img.src = src;
-  return img;
-};
-
-/**
+ * @method killDOMEvent
  * @param {Event} e
  */
 var killDOMEvent = function(e) {
@@ -17,6 +7,47 @@ var killDOMEvent = function(e) {
   e.stopPropagation();
 };
 
+
+// Photo -----------------------------------------------------------------------
+
+/**
+ * @module Photo
+ */
+var Photo = {
+  /**
+   * @method load
+   * @param {String} src url to image source
+   * @returns {Object} Image object
+   */
+  load: function(src) {
+    var img = new Image();
+    img.src = src;
+    return img;
+  }
+};
+
+/**
+ * @module Photo.DOM
+ */
+Photo.DOM = {
+  displayFullscreen(src) {
+    var windowWidth  = $(window).width();
+    var windowHeight = $(window).height();
+
+    var container = $('<div class="full-image-container"><span class="close-circle">&times;</span><img src="' + src + '"></div>');
+    $('body').append(container.hide());
+    container.fadeIn(100);
+  },
+
+  hideFullscreen() {
+    $('.full-image-container').fadeOut(100, null, function() {
+      $(this).remove();
+    });
+  }
+};
+
+
+// Event -----------------------------------------------------------------------
 
 /**
  * @module Event
@@ -98,7 +129,12 @@ Event.DOM = {
   }
 };
 
+
+// Window onload ---------------------------------------------------------------
+
 $(window).on('load', function() {
+
+  var eventList = _.clone(window.events);
 
   // car animation
   if($('.event-display-empty-state').length) {
@@ -107,7 +143,24 @@ $(window).on('load', function() {
     }, 300);
   }
 
-  var eventList = _.clone(window.events);
+  // hide fullscreen image
+  $('body').on('click', '.full-image-container', function() {
+    Photo.DOM.hideFullscreen();
+  });
+
+  $(document).keyup(function(e) {
+    if (e.keyCode == 27) { Photo.DOM.hideFullscreen(); }
+  });
+
+  // display fullscreen image
+  $('.event-display').on('click', '.image-drop-zone img', function() {
+    var eventData = Event.findById(
+      eventList,
+      Event.DOM.getIdFromNode(this)
+    );
+
+    Photo.DOM.displayFullscreen(eventData.fullImageSrc);
+  });
 
   /**
    * @method markerTapped
@@ -127,7 +180,7 @@ $(window).on('load', function() {
     Event.DOM.scrollToHighlight();
 
     if(event && event.imageSrc) {
-      var img = loadImage(event.imageSrc);
+      var img = Photo.load(event.imageSrc);
       img.onload = function() {
         Event.DOM.appendImage(img, event.id);
       };
