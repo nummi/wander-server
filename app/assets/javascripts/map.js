@@ -1,3 +1,103 @@
+/**
+ * @method loadImage
+ * @param {String} src url to image source
+ * @returns {Object} Image object
+ */
+var loadImage = function(src) {
+  var img = new Image();
+  img.src = src;
+  return img;
+};
+
+/**
+ * @param {Event} e
+ */
+var killDOMEvent = function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+};
+
+
+/**
+ * @module Event
+ */
+var Event = {
+  findById: function(eventList, id) {
+    return _.find(eventList, function(e){
+      return e.id === id;
+    });
+  }
+};
+
+/**
+ * @module Event.DOM
+ */
+Event.DOM = {
+  /**
+   * @method findById
+   * @param {Integer} eventId id of event for finding event DOM node
+   */
+  findById: function(eventId) {
+    return $('#event-' + eventId);
+  },
+
+  /**
+   * @method getIdFromNode
+   * @param {Node} node event node or child of event node
+   * @returns {Integer} id of event
+   */
+  getIdFromNode(node) {
+    return parseInt(
+      $(node).closest('.event-display').attr('id').replace('event-', '')
+    );
+  },
+
+  /**
+   * @method setHighlight
+   * @param {Integer} eventId id of event for finding event DOM node
+   */
+  setHighlight: function(eventId) {
+    Event.DOM.clearHighlight();
+    Event.DOM.findById(eventId)
+             .addClass('event-display--active');
+  },
+
+  /**
+   * @method clearHighlight
+   */
+  clearHighlight: function() {
+    $('.event-display').removeClass('event-display--active');
+  },
+
+  /**
+   * @method appendImage
+   * @param {Object}  image Image object
+   * @param {Integer} eventId id of event for finding event DOM node
+   */
+  appendImage: function(img, eventId) {
+    var event = Event.DOM.findById(eventId);
+    var image = $(img).hide();
+    var dropZone = event.find('.image-drop-zone').html(image);
+    image.fadeIn();
+  },
+
+  /**
+   * @method removeImage
+   * @param {Integer} eventId id of event for finding event DOM node
+   */
+  removeImage: function(eventId) {
+    Event.DOM.findById(eventId)
+             .find('.image-drop-zone').html('');
+  },
+
+  /**
+   * @method scrollToHighlight
+   */
+  scrollToHighlight: function() {
+    $('.display-view-list-section').scrollTo($('.event-display--active'), 300);
+  }
+};
+
 $(window).on('load', function() {
 
   // car animation
@@ -9,37 +109,40 @@ $(window).on('load', function() {
 
   var eventList = _.clone(window.events);
 
-  var findEventById = function(id) {
-    return _.find(eventList, function(e){
-      return e.id === id;
-    });
-  };
-
+  /**
+   * @method markerTapped
+   * @param {Object} map Google Maps Map instance
+   * @param {Object} marker Google Maps Marker instance
+   * @param {Object} event event JSON
+   * @param {Object} infoWindow Google Maps InfoWindow instance
+   */
   var markerTapped = function(map, marker, event, infoWindow){
+    map.setCenter(marker.getPosition());
+
     infoWindow.close();
     infoWindow.setContent(event.displayText);
     infoWindow.open(map, marker);
-    map.setCenter(marker.getPosition());
-    clearHighlight();
-    setHighlight(event.id);
-    scrollToHighlight();
+
+    Event.DOM.setHighlight(event.id);
+    Event.DOM.scrollToHighlight();
+
+    if(event && event.imageSrc) {
+      var img = loadImage(event.imageSrc);
+      img.onload = function() {
+        Event.DOM.appendImage(img, event.id);
+      };
+    }
   };
 
-  var closeEvent = function(infoWindow) {
+  /**
+   * @method handleCloseEvent
+   * @param {String} src url to image source
+   * @returns {Object} Image object
+   */
+  var handleCloseEvent = function(infoWindow) {
     infoWindow.close();
-    clearHighlight();
-  };
-
-  var clearHighlight = function() {
-    $('.event-display').removeClass('event-display--active');
-  };
-
-  var setHighlight = function(eventId) {
-    $('#event-' + eventId).addClass('event-display--active');
-  };
-
-  var scrollToHighlight = function() {
-    $('.display-view-list-section').scrollTo($('.event-display--active'), 300);
+    Event.DOM.clearHighlight();
+    Event.DOM.removeImage(event.id);
   };
 
   // -- Create map
@@ -110,23 +213,18 @@ $(window).on('load', function() {
   });
 
   $('.event-display').on('click', function(e) {
-    if($(this).hasClass('event-display--active')) {
-      return;
-    }
+    if($(this).hasClass('event-display--active')) { return; }
 
-    var id = parseInt(
-      $(this).attr('id').replace('event-', '')
-    );
-
-    var event = findEventById(id);
+    var id    = Event.DOM.getIdFromNode(this);
+    var event = Event.findById(eventList, id);
 
     markerTapped(map, event.marker, event, infoWindow);
   });
 
   $('.event-display .close-circle').on('click', function(e) {
-    closeEvent(infoWindow);
-    e.preventDefault();
-    e.stopPropagation();
+    handleCloseEvent(infoWindow);
+    Event.DOM.removeImage(Event.DOM.getIdFromNode(this));
+    killDOMEvent(e);
   });
 
 }); // window.onload

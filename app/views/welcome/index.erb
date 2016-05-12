@@ -25,11 +25,7 @@
             <div class="event-display-description"><%= event.description %></div>
           <% end %>
           <% if event.description && event.photo.url %><br><br><% end %>
-          <% if event.photo.url %>
-            <img src="<%= event.photo.url(:thumbnail) %>"
-                 data-full-src="<%= event.photo.url %>"
-                 class="event-display-small-image">
-          <% end %>
+          <div class="image-drop-zone"></div>
 
           <div class="event-weather-location-wrapper">
             <% if event.weather %>
