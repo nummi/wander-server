@@ -7,19 +7,6 @@
   cursor: pointer;
   // background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 23px, red 23px, red 24px);
 
-  &:hover {
-    background-color: #fafafa;
-  }
-
-  &:after {
-    @include position(absolute, 0 0 0 auto);
-    @include transition(width 0.1s ease-in-out);
-    width: 0;
-    background-color: adjust-color($ios-blue, $lightness: 47);
-    // background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 23px, red 23px, red 24px);
-    content: '';
-  }
-
   .close-circle { display: none; }
 }
 
@@ -68,13 +55,16 @@
 
 .event-display--active {
   cursor: default;
-
-  &:after { width: 100%; }
+  background-color: adjust-color($ios-blue, $lightness: 47);
 }
 
 .event-display-content {
   position: relative;
   z-index: 1;
+
+  .close-circle {
+    @include position(absolute, 0px 0px auto auto);
+  }
 }
 
 .event-display-category {
@@ -87,7 +77,9 @@
 
 .event-display-description {
   position: relative;
+  margin-bottom: 1rem;
   font-size: 1.4rem;
+  line-height: 125%;
 }
 
 .event-display-cost {
@@ -165,7 +157,12 @@
 
 .event-display-meta-comment-count {
   border-left: 1px solid #ccc;
-  padding-left: 1rem
+  padding-left: 1rem;
+
+  &.no-left-border {
+    border-left: none;
+    padding-left: 0;
+  }
 }
 
 .event-display-weather-icon {
