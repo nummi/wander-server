@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Server
   class Application < Rails::Application
+    require 'action_view/railtie'
+    require 'sprockets/railtie'
+    require 'sprockets/es6'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
