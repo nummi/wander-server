@@ -3,7 +3,7 @@ ICON_BASE = '/images/weather-icons/'
 class Event < ActiveRecord::Base
   before_create :set_default_reactions
 
-  # belongs_to :trip
+  belongs_to :trip
   has_many :comments
 
   mount_uploader :photo, PhotoUploader
