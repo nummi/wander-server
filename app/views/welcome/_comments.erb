@@ -1,8 +1,5 @@
 <div class="comments">
   <%= render 'welcome/comments_reactions', event: event %>
-  <% if comments.empty? %>
-    Leave a comment:
-  <% end %>
   <% comments.each do |c| %>
     <div class="comment">
       <div class="comment-text"><%= c.text %></div>
