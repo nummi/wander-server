@@ -3,7 +3,7 @@
    * @method killDOMEvent
    * @param {Event} e
    */
-  var killDOMEvent = function(e) {
+  const killDOMEvent = function(e) {
     e.preventDefault();
     e.stopPropagation();
   };
@@ -14,14 +14,14 @@
   /**
    * @module Photo
    */
-  var Photo = {
+  const Photo = {
     /**
      * @method load
      * @param {String} src url to image source
      * @returns {Object} Image object
      */
-    load: function(src) {
-      var img = new Image();
+    load(src) {
+      const img = new Image();
       img.src = src;
       return img;
     }
@@ -32,10 +32,10 @@
    */
   Photo.DOM = {
     displayFullscreen(src) {
-      var windowWidth  = $(window).width();
-      var windowHeight = $(window).height();
+      const windowWidth  = $(window).width();
+      const windowHeight = $(window).height();
 
-      var container = $('<div class="full-image-container"><span class="close-circle">&times;</span><img src="' + src + '"></div>');
+      const container = $('<div class="full-image-container"><span class="close-circle">&times;</span><img src="' + src + '"></div>');
       $('body').append(container.hide());
       container.fadeIn(100);
     },
@@ -53,8 +53,8 @@
   /**
    * @module Event
    */
-  var Event = {
-    findById: function(eventList, id) {
+  const Event = {
+    findById(eventList, id) {
       return _.find(eventList, function(e){
         return e.id === id;
       });
@@ -69,7 +69,7 @@
      * @method findById
      * @param {Integer} eventId id of event for finding event DOM node
      */
-    findById: function(eventId) {
+    findById(eventId) {
       return $('#event-' + eventId);
     },
 
@@ -90,7 +90,7 @@
      * @method setHighlight
      * @param {Integer} eventId id of event for finding event DOM node
      */
-    setHighlight: function(eventId) {
+    setHighlight(eventId) {
       Event.DOM.clearHighlight();
       Event.DOM.findById(eventId)
                .addClass('event-display--active');
@@ -99,7 +99,7 @@
     /**
      * @method clearHighlight
      */
-    clearHighlight: function() {
+    clearHighlight() {
       $('.event-display').removeClass('event-display--active');
     },
 
@@ -108,10 +108,11 @@
      * @param {Object}  image Image object
      * @param {Integer} eventId id of event for finding event DOM node
      */
-    appendImage: function(img, eventId) {
-      var event = Event.DOM.findById(eventId);
-      var image = $(img).hide();
-      var dropZone = event.find('.image-drop-zone').html(image);
+    appendImage(img, eventId) {
+      const event = Event.DOM.findById(eventId);
+      const image = $(img).hide();
+
+      event.find('.image-drop-zone').html(image);
       image.fadeIn();
     },
 
@@ -119,7 +120,7 @@
      * @method removeImage
      * @param {Integer} eventId id of event for finding event DOM node
      */
-    removeImage: function(eventId) {
+    removeImage(eventId) {
       Event.DOM.findById(eventId)
                .find('.image-drop-zone').html('');
     },
@@ -127,7 +128,7 @@
     /**
      * @method scrollToHighlight
      */
-    scrollToHighlight: function() {
+    scrollToHighlight() {
       $('.display-view-list-section').scrollTo(
         $('.event-display--active'), 300
       );
@@ -139,7 +140,7 @@
 
   $(window).on('load', function() {
 
-    var eventList = _.clone(window.events);
+    const eventList = _.clone(window.events);
 
     // car animation
     if($('.event-display-empty-state').length) {
@@ -159,7 +160,7 @@
 
     // display fullscreen image
     $('.event-display').on('click', '.image-drop-zone img', function() {
-      var eventData = Event.findById(
+      const eventData = Event.findById(
         eventList,
         Event.DOM.getIdFromNode(this)
       );
@@ -174,7 +175,7 @@
      * @param {Object} event event JSON
      * @param {Object} infoWindow Google Maps InfoWindow instance
      */
-    var markerTapped = function(map, marker, event, infoWindow){
+    const markerTapped = function(map, marker, event, infoWindow){
       map.setCenter(marker.getPosition());
 
       infoWindow.close();
@@ -185,7 +186,7 @@
       Event.DOM.scrollToHighlight();
 
       if(event && event.imageSrc) {
-        var img = Photo.load(event.imageSrc);
+        const img = Photo.load(event.imageSrc);
         img.onload = function() {
           Event.DOM.appendImage(img, event.id);
         };
@@ -196,7 +197,7 @@
      * @method handleCloseEvent
      * @param {Object} InfoWindow Google Maps InfoWindow instance
      */
-    var handleCloseEvent = function(infoWindow) {
+    const handleCloseEvent = function(infoWindow) {
       infoWindow.close();
       Event.DOM.clearHighlight();
       Event.DOM.removeImage(event.id);
@@ -204,7 +205,7 @@
 
     // -- Create map
 
-    var centerCoords = {
+    const centerCoords = {
       lat: 41.681961,
       lng: -81.2821347
     };
@@ -214,7 +215,7 @@
       centerCoords.lng = eventList[0].longitude;
     }
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    const map = new google.maps.Map(document.getElementById('map'), {
       center: centerCoords,
       zoom: 6,
       mapTypeId: google.maps.MapTypeId.TERRAIN,
@@ -223,7 +224,7 @@
 
     // -- Draw path
 
-    var path = new google.maps.Polyline({
+    const path = new google.maps.Polyline({
       path: eventList.map(function(event) {
         return {
           lat: event.latitude,
@@ -240,16 +241,16 @@
 
     // -- Create infoWindow
 
-    var infoWindow = new google.maps.InfoWindow({
+    const infoWindow = new google.maps.InfoWindow({
       content: ''
     });
 
     // -- Place markers and animate in
 
-    var delay = 0;
+    let delay = 0;
     _.forEach(eventList, function(event) {
       window.setTimeout(function() {
-        var marker = new google.maps.Marker({
+        const marker = new google.maps.Marker({
           position: {
             lat: event.latitude,
             lng: event.longitude
@@ -272,8 +273,8 @@
     $('.event-display').on('click', function(e) {
       if($(this).hasClass('event-display--active')) { return; }
 
-      var id    = Event.DOM.getIdFromNode(this);
-      var event = Event.findById(eventList, id);
+      const id    = Event.DOM.getIdFromNode(this);
+      const event = Event.findById(eventList, id);
 
       markerTapped(map, event.marker, event, infoWindow);
     });

@@ -5,18 +5,25 @@
    * @module SubmitButton
    */
 
-  var SubmitButton = {
+  const SubmitButton = {
+    postComment(payload) {
+      $.ajax({
+        type: 'POST',
+        url: '/comments',
+        data: { comment: payload }
+      });
+    },
+
     DOM: {
-      handleClick: function(e) {
+      handleClick(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        var form     = $(this).closest('.comment-form')
-        var template = $(this).closest('.event-display').find('.comment-template');
-        var dropZone = $(this).closest('.event-display').find('.comments');
-        var eventId  = form.data('event-id');
-        var name     = form.find('input').val();
-        var text     = form.find('textarea').val();
+        const form     = $(this).closest('.comment-form')
+        const dropZone = $(this).closest('.event-display').find('.comments');
+        const eventId  = form.data('event-id');
+        const name     = form.find('input').val();
+        const text     = form.find('textarea').val();
 
   //    Validation
 
@@ -24,30 +31,31 @@
 
   //    HTML
 
-        var html = template.clone();
+        const html = $(this).closest('.event-display')
+                            .find('.comment-template')
+                            .clone();
+
         html.find('.comment-name').text(name).end()
             .find('.comment-text').text(text).end()
             .removeClass('comment-template')
             .appendTo(dropZone);
 
-        $.ajax({
-          type: 'POST',
-          url: '/comments',
-          data: {
-            comment: {
-              name: name,
-              text: text,
-              event_id: eventId
-            }
-          }
+
+        SubmitButton.postComment({
+          name: name,
+          text: text,
+          event_id: eventId
         });
 
+        // CSS background color transition
         window.setTimeout(function() {
           html.removeClass('comment-new');
         }, 100);
 
-  //    Clear form
+        SubmitButton.DOM.clearForm(form);
+      },
 
+      clearForm(form) {
         form.find('input').val('');
         form.find('textarea').val('');
       }
@@ -61,11 +69,11 @@
    * @module Textarea
    */
 
-  var Textarea = {
+  const Textarea = {
     DOM: {
-      handleKeyup: function() {
-        var textarea = this;
-        var maxHeight = 200;
+      handleKeyup() {
+        const textarea = this;
+        const maxHeight = 200;
 
         while (textarea.scrollHeight > textarea.clientHeight && !window.opera && textarea.clientHeight < maxHeight) {
           textarea.style.overflow = 'hidden';
