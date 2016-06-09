@@ -12,7 +12,11 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   version :thumbnail do
-    process :resize_to_limit => [1000, nil]
+    process :resize_to_limit => [750, nil]
+  end
+
+  version :large do
+    process :resize_to_limit => [2000, nil]
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
