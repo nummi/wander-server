@@ -1,4 +1,5 @@
 (function() {
+  const ANIMATION_EVENT_END = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
   // Submit Button -------------------------------------------------------------
 
   /**
@@ -19,21 +20,28 @@
         e.preventDefault();
         e.stopPropagation();
 
-        const form     = $(this).closest('.comment-form')
-        const dropZone = $(this).closest('.event-display').find('.comments');
+        const button   = $(this);
+        const form     = button.closest('.comment-form')
+        const dropZone = button.closest('.event-display').find('.comments');
         const eventId  = form.data('event-id');
         const name     = form.find('input').val();
         const text     = form.find('textarea').val();
 
   //    Validation
 
-        if(!name || !text) { return; }
+        if(!name || !text) {
+          form.find('.comment-form-field').addClass('shake-slow').one(ANIMATION_EVENT_END, function(e) {
+            $(this).removeClass('shake-slow');
+          });
+
+          return;
+        }
 
   //    HTML
 
-        const html = $(this).closest('.event-display')
-                            .find('.comment-template')
-                            .clone();
+        const html = button.closest('.event-display')
+                           .find('.comment-template')
+                           .clone();
 
         html.find('.comment-name').text(name).end()
             .find('.comment-text').text(text).end()
