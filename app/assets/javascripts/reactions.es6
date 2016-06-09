@@ -33,12 +33,17 @@
       e.stopPropagation();
 
       const reaction = $(this);
-      const eventId  = reaction.closest('.comments-reactions').attr('data-event-id');
+
+      if(reaction.hasClass('clicked')) { return; }
 
       Reaction.DOM.incrementCountForReaction(reaction);
+      Reaction.DOM.animate(reaction);
 
       const reactions = reaction.closest('.comments-reactions')
                                 .find('.comment-reaction');
+
+      const eventId = reaction.closest('.comments-reactions')
+                               .attr('data-event-id');
 
       const payload = Reaction.DOM.createPayloadFromReaction(reaction);
       Reaction.save(eventId, payload);
@@ -49,6 +54,10 @@
 
       reaction.attr('data-count', newCount)
               .find('.comment-reaction-count').text(newCount);
+    },
+
+    animate(reaction) {
+      $(reaction).addClass('clicked');
     },
 
     createPayloadFromReaction(reaction) {

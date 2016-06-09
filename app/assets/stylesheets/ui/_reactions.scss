@@ -5,6 +5,8 @@
 }
 
 .comment-reaction {
+  overflow: visible;
+  position: relative;
   display: inline-block;
   margin: 0 0.5rem 0.5rem 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -17,8 +19,70 @@
   &:hover {
     border-color: rgba(0, 0, 0, 0.3);
   }
+
+  &.clicked:hover {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &::after,
+  &::before {
+    @include position(absolute, 50% auto auto 50%);
+    margin: -35px 0 0 -35px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 0 0 2px rgba(224, 190, 105, 1);
+  }
+
+  // smiling face with heart-shaped eyes
+  &[data-code='1F60D']::after,
+  &[data-code='1F60D']::before {
+    box-shadow: 0 0 0 2px #FB7657;
+  }
+
+  // pile of poo
+  &[data-code='1F4A9']::after,
+  &[data-code='1F4A9']::before {
+    box-shadow: 0 0 0 2px #B79272;
+  }
+
+  &.clicked { cursor: default; }
+
+  &.clicked::before {
+    @include animation(comment-reaction-animation-1 0.55s forwards);
+  }
+
+  &.clicked::after {
+    @include animation(comment-reaction-animation-2 0.5s forwards);
+  }
 }
 
 .comment-reaction-count {
   font-size: 1.4rem;
+}
+
+
+@include keyframes(comment-reaction-animation-1) {
+  0% {
+    opacity: 1;
+    @include transform(scale3d(0.5, 0.5, 1));
+  }
+  100% {
+    opacity: 0;
+    @include transform(scale3d(1.1, 1.1, 1));
+  }
+}
+
+@include keyframes(comment-reaction-animation-2) {
+  0% {
+    opacity: 1;
+    @include transform(scale3d(0.5, 0.5, 1));
+  }
+  50%, 100% {
+    opacity: 0;
+    @include transform(scale3d(1.2, 1.2, 1));
+  }
 }
