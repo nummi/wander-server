@@ -7,7 +7,10 @@
   cursor: pointer;
   // background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 23px, red 23px, red 24px);
 
-  .close-circle { display: none; }
+  .button-circle {
+    display: none;
+    background-color: #A4BFDC;
+  }
 }
 
 .event-display-empty-state {
@@ -62,7 +65,7 @@
   position: relative;
   z-index: 1;
 
-  .close-circle {
+  .button-circle {
     @include position(absolute, 0px 0px auto auto);
   }
 }
@@ -139,7 +142,7 @@
 
 @media screen and (max-width: 500px) {
   .event-display-venue-name {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: bold;
   }
 }
@@ -156,10 +159,12 @@
 }
 
 .event-display-meta-comment-count {
+  margin-left: 0.75rem;
   border-left: 1px solid #ccc;
   padding-left: 1rem;
 
   &.no-left-border {
+    margin-left: 0;
     border-left: none;
     padding-left: 0;
   }
@@ -173,6 +178,16 @@
   .event-display-weather-icon {
     width: 40px;
   }
+}
+
+.event-display-image-loading {
+  margin-bottom: 1.5rem;
+  border: 1px dashed #aaa;
+  border-radius: 0.5rem;
+  padding: 4rem 0;
+  color: rgba(0,0,0, 0.75);
+  font-size: 1.8rem;
+  text-align: center;
 }
 
 .event-display-sub-content {
@@ -213,13 +228,14 @@
     display: block;
   }
 
-  .close-circle { display: block; }
+  .button-circle { display: block; }
 
   .event-display-icon { display: none; }
 }
 
 
 .event-weather-location-wrapper {
+  display: none;
   overflow: hidden;
   border-top: 1px dashed rgba(0,0,0, 0.1);
 }

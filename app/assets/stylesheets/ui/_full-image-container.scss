@@ -11,7 +11,19 @@
     cursor: grab;
   }
 
-  .close-circle {
-    @include position(fixed, 12px 30px auto auto);
+  .button-circle {
+    z-index: 2;
   }
+}
+
+.image-close {
+  @include position(fixed, 12px 30px auto auto);
+}
+
+.image-zoom-in {
+  @include position(fixed, 64px 30px auto auto);
+}
+
+.image-zoom-out {
+  @include position(fixed, 116px 30px auto auto);
 }

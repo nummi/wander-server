@@ -1,0 +1,21 @@
+@mixin button-circle-size($size: 40px, $line-height: 64%) {
+  width: $size;
+  height: $size;
+  font-size: $size + ($size/4);
+  line-height: $line-height;
+}
+
+.button-circle {
+  @include button-circle-size(40px);
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(0,0,0, 0.4);
+  cursor: pointer;
+  @include user-select(none);
+}
+
+.button-circle--white {
+  color: rgba(0,0,0, 0.75);
+  background-color: rgba(255,255,255, 0.7);
+}

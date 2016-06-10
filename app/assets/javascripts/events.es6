@@ -35,15 +35,37 @@
       const windowWidth  = $(window).width();
       const windowHeight = $(window).height();
 
-      const container = $('<div class="full-image-container"><span class="close-circle">&times;</span><img src="' + src + '"></div>');
+      const html = `
+        <div class="full-image-container">
+          <span class="button-circle button-circle--white image-close">&times;</span>
+          <span class="button-circle button-circle--white image-zoom-in">+</span>
+          <span class="button-circle button-circle--white image-zoom-out">&ndash;</span>
+          <img src="${src}">
+        </div>
+      `;
+
+      const container = $(html);
       $('body').append(container.hide());
       container.fadeIn(100);
+      $('.full-image-container img').panzoom({
+        minScale: 0.2,
+        maxScale: 1,
+      });
     },
 
     hideFullscreen() {
+      $('.full-image-container img').panzoom('destroy');
       $('.full-image-container').fadeOut(100, null, function() {
         $(this).remove();
       });
+    },
+
+    zoomIn() {
+      $('.full-image-container img').panzoom('zoom', false);
+    },
+
+    zoomOut() {
+      $('.full-image-container img').panzoom('zoom', true);
     }
   };
 
@@ -117,6 +139,24 @@
     },
 
     /**
+     * @method appendImageLoading
+     * @param {Integer} eventId id of event for finding event DOM node
+     */
+    appendImageLoading(eventId) {
+      const markup = '<div class="event-display-image-loading">Loading photo....</div>';
+
+      Event.DOM.findById(eventId)
+               .find('.image-drop-zone')
+               .html(markup);
+    },
+
+    removeImageLoading(eventId) {
+      Event.DOM.findById(eventId)
+               .find('.event-display-image-loading')
+               .remove();
+    },
+
+    /**
      * @method removeImage
      * @param {Integer} eventId id of event for finding event DOM node
      */
@@ -150,9 +190,15 @@
     }
 
     // hide fullscreen image
-    $('body').on('click', '.full-image-container', function() {
+    $('body').on('click', '.full-image-container .image-close', function() {
       Photo.DOM.hideFullscreen();
     });
+
+    // zoom in fullscreen image
+    $('body').on('click', '.full-image-container .image-zoom-in', Photo.DOM.zoomIn);
+
+    // zoom out fullscreen image
+    $('body').on('click', '.full-image-container .image-zoom-out', Photo.DOM.zoomOut);
 
     $(document).keyup(function(e) {
       if (e.keyCode == 27) { Photo.DOM.hideFullscreen(); }
@@ -185,12 +231,15 @@
       Event.DOM.setHighlight(event.id);
       Event.DOM.scrollToHighlight();
 
-      if(event && event.imageSrc) {
-        const img = Photo.load(event.imageSrc);
-        img.onload = function() {
-          Event.DOM.appendImage(img, event.id);
-        };
-      }
+      if(!event || !event.imageSrc) { return; }
+
+      Event.DOM.appendImageLoading(event.id);
+      const img = Photo.load(event.imageSrc);
+
+      img.onload = function() {
+        Event.DOM.removeImageLoading(event.id);
+        Event.DOM.appendImage(img, event.id);
+      };
     };
 
     /**
@@ -279,7 +328,7 @@
       markerTapped(map, event.marker, event, infoWindow);
     });
 
-    $('.event-display .close-circle').on('click', function(e) {
+    $('.event-display .button-circle').on('click', function(e) {
       handleCloseEvent(infoWindow);
       Event.DOM.removeImage(Event.DOM.getIdFromNode(this));
       killDOMEvent(e);
