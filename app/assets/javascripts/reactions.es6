@@ -1,4 +1,5 @@
 (function() {
+  const ANIMATION_EVENT_END = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
   /**
    * @module Reaction
    * --------------------------------------------------------------------------
@@ -34,7 +35,7 @@
 
       const reaction = $(this);
 
-      if(reaction.hasClass('clicked')) { return; }
+      if(reaction.hasClass('already-voted')) { return; }
 
       Reaction.DOM.incrementCountForReaction(reaction);
       Reaction.DOM.animate(reaction);
@@ -57,7 +58,11 @@
     },
 
     animate(reaction) {
-      $(reaction).addClass('clicked');
+      $(reaction).addClass('clicked')
+                 .addClass('already-voted')
+                 .one(ANIMATION_EVENT_END, function() {
+                   $(this).removeClass('clicked');
+                 });
     },
 
     createPayloadFromReaction(reaction) {

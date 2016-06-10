@@ -5,7 +5,7 @@
           data-count="<%= c['count'] %>"
           data-description="<%= c['description'] %>"
           title="<%= c['description'] %>">
-      <%= "&#x#{c['code']};".html_safe %>
+      <span class="comment-reaction-icon"><%= "&#x#{c['code']};".html_safe %></span>
       <span class="comment-reaction-count"><%= c['count'] %></span>
     </span>
   <% end %>

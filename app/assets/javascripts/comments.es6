@@ -7,14 +7,6 @@
    */
 
   const SubmitButton = {
-    postComment(payload) {
-      $.ajax({
-        type: 'POST',
-        url: '/comments',
-        data: { comment: payload }
-      });
-    },
-
     DOM: {
       handleClick(e) {
         e.preventDefault();
@@ -23,25 +15,20 @@
         const button   = $(this);
         const form     = button.closest('.comment-form')
         const dropZone = button.closest('.event-display').find('.comments');
-        const eventId  = form.data('event-id');
+        const eventId  = Form.DOM.getEventId(form);
         const name     = form.find('input').val();
         const text     = form.find('textarea').val();
 
   //    Validation
 
-        if(!name || !text) {
-          form.find('.comment-form-field').addClass('shake-slow').one(ANIMATION_EVENT_END, function(e) {
-            $(this).removeClass('shake-slow');
-          });
-
+        if(!Form.DOM.isValid(form)) {
+          Form.DOM.invalidAnimation(form);
           return;
         }
 
   //    HTML
 
-        const html = button.closest('.event-display')
-                           .find('.comment-template')
-                           .clone();
+        const html = Comment.DOM.getTemplate();
 
         html.find('.comment-name').text(name).end()
             .find('.comment-text').text(text).end()
@@ -49,7 +36,7 @@
             .appendTo(dropZone);
 
 
-        SubmitButton.postComment({
+        Comment.post({
           name: name,
           text: text,
           event_id: eventId
@@ -60,12 +47,7 @@
           html.removeClass('comment-new');
         }, 100);
 
-        SubmitButton.DOM.clearForm(form);
-      },
-
-      clearForm(form) {
-        form.find('input').val('');
-        form.find('textarea').val('');
+        Form.DOM.clearValues(form);
       }
     }
   };
@@ -89,6 +71,63 @@
         }
 
         if (textarea.scrollHeight > textarea.clientHeight) { textarea.style.overflow = 'auto'; }
+      }
+    }
+  };
+
+
+  // Comment ------------------------------------------------------------------
+
+  /**
+   * @module Comment
+   */
+
+  const Comment = {
+    post(payload) {
+      return $.ajax({
+        type: 'POST',
+        url: '/comments',
+        data: { comment: payload }
+      });
+    },
+
+    DOM: {
+      getTemplate() {
+        return $('.event-display:first').find('.comment-template')
+                                        .clone();
+      }
+    }
+  };
+
+
+  // Form ---------------------------------------------------------------------
+
+  /**
+   * @module Form
+   */
+
+  const Form = {
+    DOM: {
+      clearValues(form) {
+        form.find('input').val('');
+        form.find('textarea').val('');
+      },
+
+      getEventId(form) {
+        return $(form).data('event-id');
+      },
+
+      isValid(form) {
+        const name = form.find('input').val();
+        const text = form.find('textarea').val();
+
+        return name && text;
+      },
+
+      invalidAnimation(form) {
+        form.find('.comment-form-field').addClass('shake-slow').one(ANIMATION_EVENT_END, function(e) {
+          $(this).removeClass('shake-slow');
+        });
       }
     }
   };
