@@ -1,7 +1,7 @@
 .event-display {
   position: relative;
   border-bottom: 1px solid #eee;
-  padding: 3rem 3rem 1.25rem 3rem;
+  padding: 2rem 2.5rem 0.5rem 2.5rem;
   font-family: 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;
   @include transition(all 0.1s ease-in-out);
   cursor: pointer;
@@ -74,8 +74,14 @@
   position: relative;
   margin-bottom: 0.5rem;
   color: #999;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   text-transform: lowercase;
+}
+
+@media screen and (min-width: 1400px) {
+  .event-display-category {
+    font-size: 1.4rem;
+  }
 }
 
 .event-display-description {
@@ -124,6 +130,7 @@
 }
 
 .event-display-venue-name {
+  margin-bottom: 0.5rem;
   font-size: 2.6rem;
   font-weight: 300;
 }

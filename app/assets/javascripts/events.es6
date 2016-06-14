@@ -143,7 +143,7 @@
      * @param {Integer} eventId id of event for finding event DOM node
      */
     appendImageLoading(eventId) {
-      const markup = '<div class="event-display-image-loading">Loading photo....</div>';
+      const markup = '<div class="event-display-image-loading">Loading photo...</div>';
 
       Event.DOM.findById(eventId)
                .find('.image-drop-zone')
