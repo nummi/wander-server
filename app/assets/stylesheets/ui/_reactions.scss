@@ -11,11 +11,11 @@
   overflow: visible;
   position: relative;
   display: inline-block;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0 0.3rem 0;
   text-align: center;
   white-space: nowrap;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   &:hover .comment-reaction-icon {
     @include transform(scale(1.3));

@@ -8,7 +8,7 @@
         longitude: <%= e.geolocation['longitude'] %>,
         <% if e.photo && e.photo.url %>
           <%= "imageSrc: '#{e.photo.url(:thumbnail)}',".html_safe %>
-          <% if e.photo.url(:large) %>
+          <% if e.photo.url(:large) && !(e.trip.id == 1) %>
             <%= "fullImageSrc: '#{e.photo.url(:large)}',".html_safe %>
           <% else %>
             <%= "fullImageSrc: '#{e.photo.url}',".html_safe %>
