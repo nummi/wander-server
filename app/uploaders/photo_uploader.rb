@@ -3,7 +3,6 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   storage :fog
-  # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -11,12 +10,20 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  def fix_exif_rotation
+    manipulate! do |img|
+      img.tap(&:auto_orient)
+    end
+  end
+
   version :thumbnail do
-    process :resize_to_limit => [750, nil]
+    process :fix_exif_rotation
+    process :resize_to_fit => [750, 750]
   end
 
   version :large do
-    process :resize_to_limit => [2000, nil]
+    process :fix_exif_rotation
+    process :resize_to_fit => [2400, 2400]
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
