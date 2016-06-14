@@ -58,6 +58,8 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(
+      :trip_id,
+      :comments_disabled,
       :cost,
       :photo,
       :category,
