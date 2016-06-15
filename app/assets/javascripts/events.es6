@@ -179,6 +179,7 @@
   // Window onload -------------------------------------------------------------
 
   $(window).on('load', function() {
+    if(window.pageName != 'trips/show') { return; }
 
     const eventList = _.clone(window.events);
 

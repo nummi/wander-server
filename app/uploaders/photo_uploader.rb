@@ -18,12 +18,12 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   version :thumbnail do
     process :fix_exif_rotation
-    process :resize_to_fit => [750, 750]
+    process :resize_to_limit => [750, 750]
   end
 
   version :large do
     process :fix_exif_rotation
-    process :resize_to_fit => [2400, 2400]
+    process :resize_to_limit => [2400, 2400]
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

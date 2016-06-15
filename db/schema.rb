@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610191707) do
+ActiveRecord::Schema.define(version: 20160615153605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,9 @@ ActiveRecord::Schema.define(version: 20160610191707) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "comments_disabled", default: false
+    t.string   "short_name"
   end
+
+  add_index "trips", ["short_name"], name: "index_trips_on_short_name", unique: true, using: :btree
 
 end

@@ -14,7 +14,7 @@
     save(eventId, payload) {
       $.ajax({
         type: 'POST',
-        url: '/events/' + eventId + '/react',
+        url: '/api/events/' + eventId + '/react',
         dataType: 'json',
         data: {
           event: {
@@ -28,6 +28,7 @@
   Reaction.DOM = {
     /**
      * @method handleClick
+     * @param {Event} e
      */
     handleClick(e) {
       e.preventDefault();
@@ -50,6 +51,10 @@
       Reaction.save(eventId, payload);
     },
 
+    /**
+     * @method incrementCountForReaction
+     * @param {jquery object} reaction
+     */
     incrementCountForReaction(reaction) {
       const newCount = parseInt(reaction.attr('data-count')) + 1;
 
@@ -57,6 +62,10 @@
               .find('.comment-reaction-count').text(newCount);
     },
 
+    /**
+     * @method animate
+     * @param {jquery object} reaction
+     */
     animate(reaction) {
       $(reaction).addClass('clicked')
                  .addClass('already-voted')
@@ -65,6 +74,10 @@
                  });
     },
 
+    /**
+     * @method createPayloadFromReaction
+     * @param {jquery object} reaction
+     */
     createPayloadFromReaction(reaction) {
       const reactions = $(reaction).closest('.comments-reactions').find('.comment-reaction');
       let payload = [];

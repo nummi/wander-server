@@ -1,3 +1,9 @@
+.event-display-list {
+  @include position(absolute, $title-bar-height 0px 0px 0px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .event-display {
   position: relative;
   border-bottom: 1px solid #eee;

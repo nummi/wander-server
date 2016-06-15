@@ -7,5 +7,6 @@ class TripSerializer < ActiveModel::Serializer
   attributes :id,
              :comments_disabled,
              :created_at,
-             :name
+             :name,
+             :short_name
 end

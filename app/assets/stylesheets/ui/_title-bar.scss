@@ -1,0 +1,49 @@
+.title-bar {
+  @include position(absolute, 0 0 auto 0);
+  @include justify-content(space-between);
+  display: flex;
+  height: $title-bar-height;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.6rem;
+  line-height: $title-bar-height;
+  background: #fff;
+  z-index: 2;
+}
+
+.title-bar-text {
+  @include position(absolute, 0 0 0 0);
+  /* flex-grow: 2; */
+  font-weight: 600;
+  @include ellipsis;
+  text-align: center;
+}
+
+.title-bar-button {
+  position: relative;
+  padding: 0 10px;
+  color: $ios-blue;
+  cursor: pointer;
+  text-decoration: none;
+  z-index: 2;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    height: 17px;
+    margin-top: -7.5px;
+
+    polygon {
+      fill: $ios-blue;
+    }
+  }
+}
+
+.title-bar-button--right {
+  svg {
+    right: 13px;
+  }
+}
+
+.title-bar-button--default {
+  font-weight: bold;
+}
