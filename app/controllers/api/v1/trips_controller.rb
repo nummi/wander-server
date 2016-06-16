@@ -37,7 +37,8 @@ module Api
         params.require(:trip).permit(
           :comments_disabled,
           :created_at,
-          :name
+          :name,
+          :short_name
         )
       end
 

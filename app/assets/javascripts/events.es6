@@ -1,4 +1,6 @@
 (function() {
+  let mapLoaded = false;
+
   /**
    * @method killDOMEvent
    * @param {Event} e
@@ -6,6 +8,33 @@
   const killDOMEvent = function(e) {
     e.preventDefault();
     e.stopPropagation();
+  };
+
+  // Map Loading Spinner ------------------------------------------------------
+
+  /**
+   * @module MapLoadingSpinner
+   */
+  const MapLoadingSpinner = {
+    show() {
+      const spinner = $('<div class="loading-spinner"></div>')
+      $('body').append(spinner);
+
+      MapLoadingSpinner.position(spinner);
+    },
+
+    hide() {
+      $('.loading-spinner').remove();
+    },
+
+    position(spinner) {
+      const map = $('.display-view-map-section');
+
+      spinner.css({
+        top:  map.offset().top  + (map.height()/2),
+        left: map.offset().left + (map.width()/2)
+      });
+    }
   };
 
 
@@ -108,6 +137,21 @@
       );
     },
 
+    activateEvent(event) {
+      Event.DOM.setHighlight(event.id);
+      Event.DOM.scrollToHighlight();
+
+      if(!event.imageSrc) { return; }
+
+      Event.DOM.appendImageLoading(event.id);
+      const img = Photo.load(event.imageSrc);
+
+      img.onload = function() {
+        Event.DOM.removeImageLoading(event.id);
+        Event.DOM.appendImage(img, event.id);
+      };
+    },
+
     /**
      * @method setHighlight
      * @param {Integer} eventId id of event for finding event DOM node
@@ -169,12 +213,18 @@
      * @method scrollToHighlight
      */
     scrollToHighlight() {
-      $('.display-view-list-section').scrollTo(
-        $('.event-display--active'), 300
+      $('.event-display-list').scrollTo(
+        $('.event-display--active'), 300, {
+          offset: { top: -44 }
+        }
       );
     }
   };
 
+
+  $(function() {
+    MapLoadingSpinner.show();
+  });
 
   // Window onload -------------------------------------------------------------
 
@@ -229,18 +279,7 @@
       infoWindow.setContent(event.displayText);
       infoWindow.open(map, marker);
 
-      Event.DOM.setHighlight(event.id);
-      Event.DOM.scrollToHighlight();
-
-      if(!event || !event.imageSrc) { return; }
-
-      Event.DOM.appendImageLoading(event.id);
-      const img = Photo.load(event.imageSrc);
-
-      img.onload = function() {
-        Event.DOM.removeImageLoading(event.id);
-        Event.DOM.appendImage(img, event.id);
-      };
+      Event.DOM.activateEvent(event);
     };
 
     /**
@@ -270,6 +309,11 @@
       zoom: 6,
       mapTypeId: google.maps.MapTypeId.TERRAIN,
       mapTypeControl: false
+    });
+
+    google.maps.event.addListenerOnce(map, 'idle', function(){
+      mapLoaded = true;
+      MapLoadingSpinner.hide();
     });
 
     // -- Draw path
@@ -326,7 +370,11 @@
       const id    = Event.DOM.getIdFromNode(this);
       const event = Event.findById(eventList, id);
 
-      markerTapped(map, event.marker, event, infoWindow);
+      if(mapLoaded) {
+        markerTapped(map, event.marker, event, infoWindow);
+      } else {
+        Event.DOM.activateEvent(event);
+      }
     });
 
     $('.event-display .button-circle').on('click', function(e) {

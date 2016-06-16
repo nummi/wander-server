@@ -1,5 +1,6 @@
 .event-display-list {
-  @include position(absolute, $title-bar-height 0px 0px 0px);
+  @include position(absolute, 0px 0px 0px 0px);
+  padding-top: $title-bar-height;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }

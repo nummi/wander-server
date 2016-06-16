@@ -6,15 +6,16 @@
   border-bottom: 1px solid #ccc;
   font-size: 1.6rem;
   line-height: $title-bar-height;
-  background: #fff;
+  background: rgba(255,255,255, 0.9);
   z-index: 2;
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
 }
 
 .title-bar-text {
   @include position(absolute, 0 0 0 0);
-  /* flex-grow: 2; */
-  font-weight: 600;
   @include ellipsis;
+  font-size: 1.8rem;
   text-align: center;
 }
 
