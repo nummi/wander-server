@@ -64,11 +64,19 @@
       const windowWidth  = $(window).width();
       const windowHeight = $(window).height();
 
+      const touchDevice = 'ontouchstart' in window;
+
+      const desktopControls = `
+        <span class="button-circle button-circle--white image-zoom-in">+</span>
+        <span class="button-circle button-circle--white image-zoom-out">&ndash;</span>
+      `;
+
+      const touchControls = `<div class="pinch-message">Pinch to zoom</div>`;
+
       const html = `
         <div class="full-image-container">
           <span class="button-circle button-circle--white image-close">&times;</span>
-          <span class="button-circle button-circle--white image-zoom-in">+</span>
-          <span class="button-circle button-circle--white image-zoom-out">&ndash;</span>
+          ${touchDevice ? touchControls : desktopControls}
           <img src="${src}">
         </div>
       `;
