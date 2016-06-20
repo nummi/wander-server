@@ -223,6 +223,7 @@
 
 
   $(function() {
+    if(window.pageName != 'trips/show') { return; }
     MapLoadingSpinner.show();
   });
 
