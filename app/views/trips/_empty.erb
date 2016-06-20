@@ -1,6 +1,13 @@
 <div class="event-display-empty-state">
   <div>
-    <span>The Journey begins June 24th</span>
+    <span>
+      The Journey begins
+      <% if trip.start_date.nil? %>
+        soon
+      <% else %>
+        <%= trip.start_date.strftime('%B %e') %>
+      <% end %>
+    </span>
     <img src="/images/crv.png">
   </div>
 </div>

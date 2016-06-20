@@ -3,15 +3,13 @@
   <div class="display-view-list-section">
     <div class="title-bar">
       <a href="/trips" class="title-bar-button">
-        <svg width="13px" height="22px" viewBox="0 0 13 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <polygon fill="#007AFF" points="10.495689 -1.70530257e-13 -9.23705556e-14 10.995689 10.495689 21.991378 12.8032963 19.1707234 5 10.995689 12.8032963 2.8206546"></polygon>
-        </svg>
+        <%= render 'svg/back_arrow' %>
       </a>
       <div class="title-bar-text"><%= @trip.name %></div>
     </div>
     <div class="event-display-list">
       <% if @events.count < 1 %>
-        <%= render 'trips/empty' %>
+        <%= render 'trips/empty', trip: @trip %>
       <% end %>
       <% @events.each do |event| %>
         <div class="event-display" id="event-<%= event.id %>">
