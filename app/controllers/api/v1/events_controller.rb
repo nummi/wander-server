@@ -63,6 +63,7 @@ module Api
           :trip_id,
           :comments_disabled,
           :cost,
+          :created_at,
           :photo,
           :category,
           :publish,
