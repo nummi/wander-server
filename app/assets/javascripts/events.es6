@@ -340,29 +340,40 @@
       content: ''
     });
 
-    // -- Place markers and animate in
+    // -- Create markers and clusterer
 
-    let delay = 0;
-    _.forEach(eventList, function(event) {
-      window.setTimeout(function() {
-        const marker = new google.maps.Marker({
-          position: {
-            lat: event.latitude,
-            lng: event.longitude
-          },
-          title: event.displayText,
-          map: map,
-          animation: google.maps.Animation.DROP
-        });
+    const markers = _.map(eventList, function(event) {
+      const marker = new google.maps.Marker({
+        position: {
+          lat: event.latitude,
+          lng: event.longitude
+        },
+        title: event.displayText,
+        map: map,
+        animation: google.maps.Animation.DROP
+      });
 
-        marker.addListener('click', function() {
-          markerTapped(map, marker, event, infoWindow);
-        });
+      marker.addListener('click', function() {
+        markerTapped(map, marker, event, infoWindow);
+      });
 
-        event.marker = marker;
-      }, delay);
+      event.marker = marker;
 
-      delay = delay + 100;
+      return marker;
+    });
+
+    const markerCluster = new MarkerClusterer(map, markers, {
+      imagePath: '/images/m',
+      gridSize: 40,
+      styles: [{
+        url: '/images/pin.png',
+        height: 48,
+        width: 30,
+        anchor: [-18, 0],
+        textColor: '#ffffff',
+        textSize: 14,
+        iconAnchor: [15, 48]
+      }]
     });
 
     $('.event-display').on('click', function(e) {
