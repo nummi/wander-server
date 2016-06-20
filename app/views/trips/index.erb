@@ -1,5 +1,16 @@
 <div class="trips-index">
   <% @trips.each do |trip| %>
-    <%= link_to trip.name, trip %><br><br>
+    <%= link_to trip do %>
+      <%= trip.name %>
+      <span class="trips-index-date">
+        <% if trip.start_date %>
+          <%= trip.start_date.strftime('%b %e') %>
+        <% end %>
+        <% if trip.start_date && trip.end_date %>
+          &ndash; <%= trip.end_date.strftime('%b %e') %>
+        <% end %>
+      </span>
+    <% end %>
+    <br><br>
   <% end %>
 </div>
