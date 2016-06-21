@@ -155,11 +155,11 @@
     },
 
     nextEventWithPhoto() {
-      return $('.event-display--active').next('.event-display[has-photo=true]');
+      return $('.event-display--active').nextUntil('.event-display[has-photo=true]');
     },
 
     prevEventWithPhoto() {
-      return $('.event-display--active').prev('.event-display[has-photo=true]');
+      return $('.event-display--active').prevUntil('.event-display[has-photo=true]');
     },
 
     activateEvent(event) {
