@@ -12,6 +12,7 @@ gem 'rails', '4.2.4'
 gem 'rails_12factor', group: :production
 gem 'responders', '~> 2.0'
 gem 'sass'
+gem 'sass-rails'
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
 gem 'uglifier'
