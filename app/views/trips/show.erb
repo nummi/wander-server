@@ -12,7 +12,7 @@
         <%= render 'trips/empty', trip: @trip %>
       <% end %>
       <% @events.each do |event| %>
-        <div class="event-display" id="event-<%= event.id %>">
+        <div class="event-display" id="event-<%= event.id %>" has-photo="<%= event.photo.url.present? %>">
           <div class="event-display-content">
             <div class="event-display-venue-name">
               <%= event.display_text %>

@@ -13,11 +13,30 @@
 
   .button-circle {
     z-index: 2;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
   }
 }
 
+.carousel-button {
+  position: fixed;
+  top: 50%;
+  margin-top: -2.5rem;
+  border-radius: 0.5rem;
+  padding: 3rem 1rem;
+  font-size: 2.0rem;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+
+  &.previous { left:  20px; }
+  &.next     { right: 20px; }
+}
+
 .pinch-message {
-  @include position(fixed, auto 30px 30px auto);
+  @include position(fixed, auto 20px 30px auto);
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   font-size: 1.4rem;
@@ -71,15 +90,15 @@
 }
 
 .image-close {
-  @include position(fixed, 12px 30px auto auto);
+  @include position(fixed, 12px 20px auto auto);
 }
 
 .image-zoom-in {
-  @include position(fixed, 64px 30px auto auto);
+  @include position(fixed, 64px 20px auto auto);
 }
 
 .image-zoom-out {
-  @include position(fixed, 116px 30px auto auto);
+  @include position(fixed, 116px 20px auto auto);
 }
 
 @keyframes pinch-circle-top {

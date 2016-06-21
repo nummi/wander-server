@@ -61,21 +61,24 @@
    */
   Photo.DOM = {
     displayFullscreen(src) {
+      $('.full-image-container').remove();
+
       const windowWidth  = $(window).width();
       const windowHeight = $(window).height();
-
-      const touchDevice = 'ontouchstart' in window;
+      const touchDevice  = 'ontouchstart' in window;
 
       const desktopControls = `
         <span class="button-circle button-circle--white image-zoom-in">+</span>
         <span class="button-circle button-circle--white image-zoom-out">&ndash;</span>
       `;
 
-      const touchControls = `<div class="pinch-message">Pinch to zoom</div>`;
+      const touchControls = '';
 
       const html = `
         <div class="full-image-container">
           <span class="button-circle button-circle--white image-close">&times;</span>
+          <div class="carousel-button previous">&lt;</div>
+          <div class="carousel-button next">&gt;</div>
           ${touchDevice ? touchControls : desktopControls}
           <img src="${src}">
         </div>
@@ -84,9 +87,15 @@
       const container = $(html);
       $('body').append(container.hide());
       container.fadeIn(100);
+
       $('.full-image-container img').panzoom({
         minScale: 0.2,
         maxScale: 1,
+      });
+
+      $('.full-image-container .carousel-button').on('click', function() {
+        const direction = $(this).hasClass('next') ? 'next' : 'prev';
+        Event.DOM.stepActiveEvent(direction);
       });
     },
 
@@ -145,6 +154,14 @@
       );
     },
 
+    nextEventWithPhoto() {
+      return $('.event-display--active').next('.event-display[has-photo=true]');
+    },
+
+    prevEventWithPhoto() {
+      return $('.event-display--active').prev('.event-display[has-photo=true]');
+    },
+
     activateEvent(event) {
       Event.DOM.setHighlight(event.id);
       Event.DOM.scrollToHighlight();
@@ -158,6 +175,19 @@
         Event.DOM.removeImageLoading(event.id);
         Event.DOM.appendImage(img, event.id);
       };
+    },
+
+    stepActiveEvent(direction) {
+      const activeNode = Event.DOM[direction + 'EventWithPhoto']();
+      if(!activeNode.length) { return; }
+
+      const event = Event.findById(
+        Event.list,
+        Event.DOM.getIdFromNode(activeNode)
+      );
+
+      Event.DOM.activateEvent(event);
+      Photo.DOM.displayFullscreen(event.fullImageSrc);
     },
 
     /**
@@ -241,6 +271,7 @@
     if(window.pageName != 'trips/show') { return; }
 
     const eventList = _.clone(window.events);
+    Event.list = eventList;
 
     // car animation
     if($('.event-display-empty-state').length) {
