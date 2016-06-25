@@ -4,7 +4,7 @@ module Api
       def create
         comment = Comment.new(comment_params)
         comment.save
-        respond_with comment
+        respond_with comment, :location => api_comment_path(comment)
       end
 
       private
