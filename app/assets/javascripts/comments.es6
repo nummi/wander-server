@@ -86,7 +86,7 @@
     post(payload) {
       return $.ajax({
         type: 'POST',
-        url: '/comments',
+        url: '/api/comments',
         data: { comment: payload }
       });
     },
