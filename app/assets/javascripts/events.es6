@@ -335,8 +335,8 @@
     // -- Create map
 
     const centerCoords = {
-      lat: 41.681961,
-      lng: -81.2821347
+      lat: 37.773972,
+      lng: -122.431297
     };
 
     if(eventList.length) {
