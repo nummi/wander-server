@@ -20,5 +20,3 @@ config/database.yml
 
 .env
 
-# ignore heroku backups
-latest.dump
